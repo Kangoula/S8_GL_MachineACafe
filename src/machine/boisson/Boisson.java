@@ -5,15 +5,28 @@ package machine.boisson;
  * @author Guillaume Denis
  *
  */
-public class Boisson extends Recette {
+public class Boisson{
 
 	private String nom;
 	private int prix;
+	private Recette recette;
 	
-	public Boisson(int qteCafe, int qteLait, int qteSucre, int qteChocolat, String nom, int prix) {
-		super(qteCafe, qteLait, qteSucre, qteChocolat);
+	public Boisson(Recette recette, String nom, int prix) {
 		this.nom = nom;
 		this.prix = prix;
+		this.recette = recette;
+	}
+
+	public Recette getRecette() {
+		return recette;
+	}
+
+	public void setRecette(Recette recette) {
+		this.recette = recette;
+	}
+
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 
 	public String getNom() {

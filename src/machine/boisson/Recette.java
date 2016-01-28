@@ -4,7 +4,7 @@ package machine.boisson;
  * @author Guillaume Denis
  *
  */
-public abstract class Recette {
+public class Recette {
 	
 	private int qteCafe;
 	private int qteLait;
@@ -12,8 +12,7 @@ public abstract class Recette {
 	private int qteChocolat;
 	
 	//CONSTRUCTOR
-	protected Recette(int qteCafe, int qteLait, int qteSucre, int qteChocolat) {
-		super();
+	public Recette(int qteCafe, int qteLait, int qteSucre, int qteChocolat) {
 		this.qteCafe = qteCafe;
 		this.qteLait = qteLait;
 		this.qteSucre = qteSucre;
@@ -22,35 +21,35 @@ public abstract class Recette {
 	
 	
 	// GETTERS and SETTERS
-	protected int getQteCafe() {
+	public int getQteCafe() {
 		return qteCafe;
 	}
 	
-	protected void setQteCafe(int qteCafe) {
+	public void setQteCafe(int qteCafe) {
 		this.qteCafe = qteCafe;
 	}
 	
-	protected int getQteLait() {
+	public int getQteLait() {
 		return qteLait;
 	}
 	
-	protected void setQteLait(int qteLait) {
+	public void setQteLait(int qteLait) {
 		this.qteLait = qteLait;
 	}
 	
-	protected int getQteSucre() {
+	public int getQteSucre() {
 		return qteSucre;
 	}
 	
-	protected void setQteSucre(int qteSucre) {
+	public void setQteSucre(int qteSucre) {
 		this.qteSucre = qteSucre;
 	}
 	
-	protected int getQteChocolat() {
+	public int getQteChocolat() {
 		return qteChocolat;
 	}
 	
-	protected void setQteChocolat(int qteChocolat) {
+	public void setQteChocolat(int qteChocolat) {
 		this.qteChocolat = qteChocolat;
 	}
 	
