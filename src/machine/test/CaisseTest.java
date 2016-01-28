@@ -23,5 +23,15 @@ public class CaisseTest {
 	public void testRenduMonnaie2() {
 		assertSame(Caisse.renduMonnaie(1, 3), -2);
 	}
+	
+	@Test
+	public void testverificationMontant() {
+		assertTrue(Caisse.verificationMontant(-1));
+	}
+	
+	@Test
+	public void testverificationMontant2() {
+		assertFalse(Caisse.verificationMontant(1));
+	}
 
 }

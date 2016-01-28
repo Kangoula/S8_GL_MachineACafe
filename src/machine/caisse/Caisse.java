@@ -11,11 +11,24 @@ public class Caisse {
 		
 	}
 	
-	public static int renduMonnaie(int montant, int prix){
-		int res = montant - prix;
+	/**
+	 * Rends la monnaie à l'utilisateur
+	 * @param montantInsere
+	 * @param prix
+	 * @return
+	 */
+	public static int renduMonnaie(int montantInsere, int prix){
 		
-		return res;
+		return montantInsere - prix;
 	}
 	
+	/**
+	 * Vérifie si le montant inséré par l'utilisateur est valide
+	 * @param montant
+	 * @return
+	 */
+	public static boolean verificationMontant(int montant){
+		return (montant <= 0);
+	}
 	
 }
