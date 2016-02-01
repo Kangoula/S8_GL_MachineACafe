@@ -1,4 +1,7 @@
 package machine.boisson;
+
+import java.util.HashMap;
+
 /**
  * Représente la recette d'une boisson 
  * @author Guillaume Denis
@@ -6,51 +9,38 @@ package machine.boisson;
  */
 public class Recette {
 	
-	private int qteCafe;
-	private int qteLait;
-	private int qteSucre;
-	private int qteChocolat;
+	private HashMap<String, Integer> ingredients;
 	
-	//CONSTRUCTOR
-	public Recette(int qteCafe, int qteLait, int qteSucre, int qteChocolat) {
-		this.qteCafe = qteCafe;
-		this.qteLait = qteLait;
-		this.qteSucre = qteSucre;
-		this.qteChocolat = qteChocolat;
+	public Recette() {
+		this.ingredients = new HashMap<String, Integer>();
+	}
+
+	/**
+	 * Ajoute un ingrédient à la recette
+	 * @param nom
+	 * @param qte
+	 */
+	public void ajouterIngredient(String nom, int qte){
+		this.ingredients.put(nom.toLowerCase(), qte);
 	}
 	
-	
-	// GETTERS and SETTERS
-	public int getQteCafe() {
-		return qteCafe;
+	/**
+	 * Recupère la quantite d'un ingredient
+	 * @param nom
+	 * @return
+	 */
+	public int getQte(String nom){
+		String request = nom.toLowerCase();
+		int res = this.ingredients.containsKey(request) ? this.ingredients.get(request) : -1 ;
+		return res;
 	}
 	
-	public void setQteCafe(int qteCafe) {
-		this.qteCafe = qteCafe;
+	//GETTERS & SETTERS
+	public HashMap<String, Integer> getIngredients() {
+		return ingredients;
 	}
-	
-	public int getQteLait() {
-		return qteLait;
+
+	public void setIngredients(HashMap<String, Integer> ingredients) {
+		this.ingredients = ingredients;
 	}
-	
-	public void setQteLait(int qteLait) {
-		this.qteLait = qteLait;
-	}
-	
-	public int getQteSucre() {
-		return qteSucre;
-	}
-	
-	public void setQteSucre(int qteSucre) {
-		this.qteSucre = qteSucre;
-	}
-	
-	public int getQteChocolat() {
-		return qteChocolat;
-	}
-	
-	public void setQteChocolat(int qteChocolat) {
-		this.qteChocolat = qteChocolat;
-	}
-	
 }

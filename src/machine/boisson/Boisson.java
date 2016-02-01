@@ -17,6 +17,7 @@ public class Boisson{
 		this.recette = recette;
 	}
 
+	//GETTERS & SETTERS
 	public Recette getRecette() {
 		return recette;
 	}
