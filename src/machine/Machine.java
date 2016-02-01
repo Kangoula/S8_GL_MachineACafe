@@ -14,11 +14,11 @@ import machine.stock.Stock;
 public class Machine {
 
 	private HashMap<String, Boisson> listeBoissons;
-	private HashMap<String, Stock> listeIngrédients;
+	private HashMap<String, Stock> stockIngredients;
 	
 	public Machine() {
 		this.listeBoissons = new HashMap<String, Boisson>();
-		this.listeIngrédients = new HashMap<String, Stock>();
+		this.setStockIngredients(new HashMap<String, Stock>());
 	}
 	
 	/**
@@ -29,7 +29,7 @@ public class Machine {
 	public int ajouterBoisson(Boisson boisson){
 
 		if(this.listeBoissons.size() < 3){
-			this.listeBoissons.put(boisson.getNom(), boisson);	
+			this.listeBoissons.put(boisson.getNom().toLowerCase(), boisson);	
 		}
 		
 		return this.listeBoissons.size();
@@ -40,15 +40,18 @@ public class Machine {
 	 * @param nomBoisson
 	 * @return la boisson modifiée
 	 */
-	public Boisson modifierRecetteBoisson(String nomBoisson, int qteCafe, int qteLait, int qteSucre, int qteChocolat){
-		Boisson b = this.listeBoissons.get(nomBoisson);
+	public Recette modifierRecetteBoisson(String nomBoisson, String nomIngredient, int quantite){
 		
-		if(b != null){
-			Recette r = new Recette(qteCafe, qteLait, qteSucre, qteChocolat);
+		Recette r = null;
+		
+		if(this.listeBoissons.containsKey(nomBoisson)){
+			Boisson b = this.listeBoissons.get(nomBoisson);
+			r = b.getRecette();
+			r.ajouterIngredient(nomIngredient, quantite);
 			b.setRecette(r);
 		}
 		
-		return b;
+		return r;
 	}
 	
 	/**
@@ -72,7 +75,7 @@ public class Machine {
 	 * @return
 	 */
 	public int supprimerBoisson(String nomBoisson){
-		this.listeBoissons.remove(nomBoisson);
+		this.listeBoissons.remove(nomBoisson.toLowerCase());
 		
 		return this.listeBoissons.size();
 	}
@@ -98,6 +101,15 @@ public class Machine {
 		String res = "";
 		
 		return res;
+	}
+
+	
+	public HashMap<String, Stock> getStockIngredients() {
+		return stockIngredients;
+	}
+
+	public void setStockIngredients(HashMap<String, Stock> stockIngredients) {
+		this.stockIngredients = stockIngredients;
 	}
 	
 }
