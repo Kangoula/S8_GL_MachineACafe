@@ -17,8 +17,10 @@ public class Recette {
 
 	/**
 	 * Ajoute un ingrédient à la recette
-	 * @param nom
-	 * @param qte
+	 * Si l'ingrédient existe, sa quantité est modifiée
+	 * S'il n'existe pas, il est ajouté à la recette
+	 * @param nom le nm de l'ingrédient à ajouter
+	 * @param qte la quantité à ajouter
 	 */
 	public void ajouterIngredient(String nom, int qte){
 		this.ingredients.put(nom.toLowerCase(), qte);
@@ -26,8 +28,8 @@ public class Recette {
 	
 	/**
 	 * Recupère la quantite d'un ingredient
-	 * @param nom
-	 * @return
+	 * @param nom le nom de l'ingrédient dont on veut obtenir la quantité
+	 * @return la quantité de l'ingrédient demandé, -1 si l'ingrédient n'existe pas
 	 */
 	public int getQte(String nom){
 		String request = nom.toLowerCase();
