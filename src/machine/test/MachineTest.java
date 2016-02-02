@@ -14,12 +14,18 @@ public class MachineTest {
 
 	public Machine m;
 	public Boisson b1, b2, b3, b4;
-	public Stock s1, s2, s3, s4;
+	public Stock s1, s2, s3, s4, s5, s6;
 	public Recette r1, r2, r3, r4;
 	
 	@Before
 	public void setUp() throws Exception {
 		this.m = new Machine();
+		
+		this.s1 = new Stock("café", 12);
+		this.s2 = new Stock("LAIT", 50);
+		this.s3 = new Stock("Chocolat", 14);
+		this.s4 = new Stock("sucre", 43);
+		this.s5 = new Stock("café", 10);
 		
 		this.r1 = new Recette();
 		this.r2 = new Recette();
@@ -38,6 +44,10 @@ public class MachineTest {
 		
 		this.m.ajouterBoisson(b1);
 		this.m.ajouterBoisson(b2);
+		
+		this.m.ajouterStock(s1);
+		this.m.ajouterStock(s2);
+		this.m.ajouterStock(s3);
 	}
 
 	@Test
@@ -52,7 +62,7 @@ public class MachineTest {
 	
 	@Test
 	public void testModifierRecetteBoisson2() {
-		 //assertNull(this.m.modifierRecetteBoisson("test", 1, 2, 3, 4));
+		 assertNull(this.m.modifierRecetteBoisson("test", "café", 1));
 	}
 	
 	@Test
@@ -76,13 +86,23 @@ public class MachineTest {
 	}
 
 	@Test
-	public void testAjoutIngredient() {
-		fail("Not yet implemented");
+	public void testAjouterStock1() {
+		assertSame(22, this.m.ajouterStock(s5).getQuantite());
+	}
+	
+	@Test
+	public void testAjouterStock2() {
+		assertSame(43, this.m.ajouterStock(s4).getQuantite());
 	}
 
 	@Test
-	public void testVerifierStockIngredient() {
-		fail("Not yet implemented");
+	public void testVerifierStockIngredient1() {
+		assertSame(50, this.m.verifierStockIngredient("lait"));
+	}
+	
+	@Test
+	public void testVerifierStockIngredient2() {
+		assertSame(-1, this.m.verifierStockIngredient("yolo"));
 	}
 
 }
