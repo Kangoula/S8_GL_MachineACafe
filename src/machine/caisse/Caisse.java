@@ -24,7 +24,7 @@ public class Caisse {
 	 * @return true si le montant est valide, false sinon
 	 */
 	public static boolean verifierMontant(int montant){
-		return (montant <= 0);
+		return (montant > 0);
 	}
 	
 }
