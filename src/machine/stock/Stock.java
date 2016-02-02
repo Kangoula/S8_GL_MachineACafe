@@ -14,10 +14,21 @@ public class Stock {
 	private int quantite;
 	
 	public Stock(String type, int quantite) {
-		this.type = type;
+		this.type = type.toLowerCase();
 		this.quantite = quantite;
 	}
 
+	/**
+	 * Augmente la quantité en stock d'un montant donné
+	 * @param qte la quantité à augmenter
+	 */
+	public void augmenterStock(int qte){
+		if(qte >= 0){
+			this.quantite += qte;
+		}
+	}
+	
+	//GETTERS & SETTERS
 	public String getType() {
 		return type;
 	}
