@@ -2,8 +2,6 @@ package machine;
 
 import java.util.Scanner;
 
-import javax.swing.plaf.synth.SynthSeparatorUI;
-
 import machine.boisson.Boisson;
 import machine.boisson.Recette;
 import machine.stock.Stock;
@@ -16,12 +14,12 @@ public class Main {
 	public static void main(String[] args) {
 
 		// lancement de l'interface
-		montrerMenuPrincipal();
+		montrerMenuPrincipal(m);
 
 		sc.close();
 	}
 
-	public static void montrerMenuPrincipal() {
+	public static void montrerMenuPrincipal(Machine machine) {
 		System.out.println("-- Menu Principal --\n");
 		System.out.println("1 - Commander");
 		System.out.println("2 - Gestion de la machine");
@@ -32,21 +30,21 @@ public class Main {
 
 		switch (res) {
 		case "1":
-			montrerMenuCommande();
+			montrerMenuCommande(machine);
 			break;
 		case "2":
-			montrerMenuGestion();
+			montrerMenuGestion(machine);
 			break;
 		case "0":
 			System.out.println("À bientôt !");
 			break;
 		default:
 			System.out.println("Mauvais numéro, veuillez recommencer");
-			montrerMenuPrincipal();
+			montrerMenuPrincipal(machine);
 		}
 	}
 	
-	public static void montrerMenuCommande() {
+	public static void montrerMenuCommande(Machine machine) {
 		System.out.println("-- Commander une boisson --");
 		montrerListeBoissons();
 		montrerFleche();
@@ -56,7 +54,7 @@ public class Main {
 		System.out.println("..liste");
 	}
 	
-	public static void montrerMenuGestion() {
+	public static void montrerMenuGestion(Machine machine) {
 		System.out.println("-- Gestion de la machine --\n");
 		System.out.println("1 - Ajouter une boisson");
 		System.out.println("2 - Supprimer une boisson");
@@ -69,7 +67,7 @@ public class Main {
 		
 		switch(res2){
 		case "0":
-			montrerMenuPrincipal();
+			montrerMenuPrincipal(machine);
 			break;
 		case "1":
 			break;
@@ -81,7 +79,7 @@ public class Main {
 			break;
 		default:
 			System.out.println("Mauvais numéro, veuillez recommencer");
-			montrerMenuGestion();
+			montrerMenuGestion(machine);
 			break;
 		}
 	}
