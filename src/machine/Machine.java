@@ -36,7 +36,7 @@ public class Machine {
 		
 		return res;
 	}
-	
+
 	/**
 	 * Modifie la recette d'une boisson existante dans la machine
 	 * @param nomBoisson le nom de la boisson dont on veut modifier la recette
@@ -127,4 +127,11 @@ public class Machine {
 		this.stockIngredients = stockIngredients;
 	}
 	
+	public HashMap<String, Boisson> getListeBoissons() {
+		return listeBoissons;
+	}
+
+	public void setListeBoissons(HashMap<String, Boisson> listeBoissons) {
+		this.listeBoissons = listeBoissons;
+	}
 }
