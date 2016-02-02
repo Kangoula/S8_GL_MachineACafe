@@ -10,41 +10,41 @@ public class Main {
 
 	public static Scanner sc = new Scanner(System.in);
 	public static Machine m = initialiserMachine();
-	
+
 	public static void main(String[] args) {
 
 		// lancement de l'interface
-		montrerMenuPrincipal(m);
+		montrerMenuPrincipal();
 
 		sc.close();
 	}
 
-	public static void montrerMenuPrincipal(Machine machine) {
+	public static void montrerMenuPrincipal() {
 		System.out.println("-- Menu Principal --\n");
 		System.out.println("1 - Commander");
 		System.out.println("2 - Gestion de la machine");
 		System.out.println("0 - Quitter");
 		System.out.print("->");
-		
+
 		String res = sc.next();
 
 		switch (res) {
 		case "1":
-			montrerMenuCommande(machine);
+			montrerMenuCommande();
 			break;
 		case "2":
-			montrerMenuGestion(machine);
+			montrerMenuGestion();
 			break;
 		case "0":
 			System.out.println("À bientôt !");
 			break;
 		default:
-			System.out.println("Mauvais numéro, veuillez recommencer");
-			montrerMenuPrincipal(machine);
+			afficherErreurSaisie();
+			montrerMenuPrincipal();
 		}
 	}
-	
-	public static void montrerMenuCommande(Machine machine) {
+
+	public static void montrerMenuCommande() {
 		System.out.println("-- Commander une boisson --");
 		montrerListeBoissons();
 		montrerFleche();
@@ -53,8 +53,8 @@ public class Main {
 	public static void montrerListeBoissons() {
 		System.out.println("..liste");
 	}
-	
-	public static void montrerMenuGestion(Machine machine) {
+
+	public static void montrerMenuGestion() {
 		System.out.println("-- Gestion de la machine --\n");
 		System.out.println("1 - Ajouter une boisson");
 		System.out.println("2 - Supprimer une boisson");
@@ -62,32 +62,97 @@ public class Main {
 		System.out.println("4 - Gestion des stocks");
 		System.out.println("0 - Retour");
 		montrerFleche();
-		
+
 		String res2 = sc.next();
-		
-		switch(res2){
+
+		switch (res2) {
 		case "0":
-			montrerMenuPrincipal(machine);
+			montrerMenuPrincipal();
 			break;
 		case "1":
+			// demander nom
+
+			// demander recette
+
+			// demander prix
+
+			// afficher confirmation/information
 			break;
 		case "2":
+			// choisir boisson
+			String choix = "";
+			m.supprimerBoisson(choix);
 			break;
 		case "3":
+			montrerMenuModificationBoisson();
 			break;
 		case "4":
+			montrerMenuGestionStocks();
 			break;
 		default:
-			System.out.println("Mauvais numéro, veuillez recommencer");
-			montrerMenuGestion(machine);
+			afficherErreurSaisie();
+			montrerMenuGestion();
 			break;
 		}
 	}
-	
-	public static void montrerFleche(){
-		System.out.println("-> ");
+
+	private static void montrerMenuGestionStocks() {
+
+	}
+
+	private static void montrerMenuModificationBoisson() {
+		// choisir boisson
+		String choix = "";
+		
+		System.out.println("-- Modifier une boisson : " + choix + " --\n");
+		System.out.println("1 - Modifier la recette");
+		System.out.println("2 - Modifier le prix");
+		System.out.println("0 - Retour");
+		montrerFleche();
+
+		String res4 = sc.next();
+
+		switch (res4) {
+		case "0":
+			montrerMenuGestion();
+			break;
+		case "1":
+			// Afficher modification recette
+
+			break;
+		case "2":
+			montrerFormulaireGestionPrix(choix);
+			break;
+		default:
+			afficherErreurSaisie();
+			montrerMenuModificationBoisson();
+			break;
+		}
+	}
+
+	public static void montrerFormulaireGestionPrix(String nomBoisson){
+		System.out.println("Veuillez préciser le nouveau prix de la boisson");
+		montrerFleche();
+		String montant = sc.next();
+		
+		try{
+			m.modifierPrixBoisson(nomBoisson, Integer.parseInt(montant));
+		}
+		catch(NumberFormatException e){
+			System.out.println("Le montant n'est pas valable, veuillez recommencer");
+			montrerFleche();
+			montant = sc.next();
+		}
 	}
 	
+	public static void montrerFleche() {
+		System.out.println("-> ");
+	}
+
+	public static void afficherErreurSaisie() {
+		System.out.println("Mauvais numéro, veuillez recommencer");
+	}
+
 	/**
 	 * Initialise la machine a café avec des valeurs par défaut
 	 * 
