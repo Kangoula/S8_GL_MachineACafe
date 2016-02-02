@@ -1,9 +1,12 @@
 package machine;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
+import java.util.Set;
 
 import machine.boisson.Boisson;
 import machine.boisson.Recette;
+import machine.caisse.Caisse;
 import machine.stock.Stock;
 
 public class Main {
@@ -19,6 +22,9 @@ public class Main {
 		sc.close();
 	}
 
+	/**
+	 * Affiche le premier niveau du menu : le menu principal
+	 */
 	public static void montrerMenuPrincipal() {
 		System.out.println("-- Menu Principal --\n");
 		System.out.println("1 - Commander");
@@ -54,6 +60,9 @@ public class Main {
 		System.out.println("..liste");
 	}
 
+	/**
+	 * Affiche le niveau 2 du menu : Le menu de gestion de la machine
+	 */
 	public static void montrerMenuGestion() {
 		System.out.println("-- Gestion de la machine --\n");
 		System.out.println("1 - Ajouter une boisson");
@@ -70,16 +79,10 @@ public class Main {
 			montrerMenuPrincipal();
 			break;
 		case "1":
-			// demander nom
-
-			// demander recette
-
-			// demander prix
-
-			// afficher confirmation/information
+			montrerFormulaireAjoutBoisson();
 			break;
 		case "2":
-			// choisir boisson
+			// TODO choisir boisson
 			String choix = "";
 			m.supprimerBoisson(choix);
 			break;
@@ -96,14 +99,115 @@ public class Main {
 		}
 	}
 
-	private static void montrerMenuGestionStocks() {
+	/**
+	 * Formulaire à remplir par l'utilisateur permettant de créer une nouvelle
+	 * boisson et de l'ajouter à la machine
+	 */
+	private static void montrerFormulaireAjoutBoisson() {
+		String nom;
+		Boisson b;
+		int prix;
+
+		// demander le nom
+		System.out.println("Nom de la boisson : ");
+		montrerFleche();
+		nom = sc.next();
+
+		// demander la recette
+		Recette r = demanderRecette();
+		while(r == null){
+			r = demanderRecette();
+		}
+
+		// demander prix
+		System.out.println("Prix de la boisson : ");
+		montrerFleche();
+
+		try {
+			prix = sc.nextInt();
+			while (!Caisse.verifierMontant(prix)) {
+				afficherErreurMontant();
+				montrerFleche();
+				prix = sc.nextInt();
+			}
+		} catch (InputMismatchException e) {
+			afficherErreurMontant();
+			montrerFleche();
+			prix = sc.nextInt();
+		}
+
+		// création et ajout de la boisson
+		b = new Boisson(r, nom, prix);
+
+		if (m.ajouterBoisson(b) == -1) {
+			System.out.println("Le nombre maximum de boisson est déjà atteint,\nla boisson ne peut pas être ajoutée");
+			montrerMenuGestion();
+		}
 
 	}
 
-	private static void montrerMenuModificationBoisson() {
-		// choisir boisson
-		String choix = "";
+	/**
+	 * Formulaire permettant d'entrer une nouvelle recette dans la machine Il
+	 * est utilisé uniquement dans le cadre de la création d'une nouvelle
+	 * boisson
+	 * 
+	 * @return la nouvelle recette créée
+	 */
+	private static Recette demanderRecette() {
+		int montant;
+		Recette r = new Recette();
 		
+		//on indique la quantité de chaque ingrédient que l'on a en stock
+		Set<String> keyset = m.getStockIngredients().keySet();
+
+		for (String key : keyset) {
+			
+			System.out.println("Quantité de " + key);
+			montrerFleche();
+
+			try {
+				montant = sc.nextInt();
+				
+				while (montant < 0) {
+					afficherErreurMontant();
+					montrerFleche();
+					montant = sc.nextInt();
+				}
+
+				r.ajouterIngredient(key, montant);
+				
+			} catch (InputMismatchException e) {
+				afficherErreurMontant();
+				montrerFleche();
+				montant = sc.nextInt();
+			}
+		}
+		
+		//on vérifie qu'on a au moins 1 ingrédient dont la quantité est > 0
+		if(!r.estValide()){
+			System.out.println("La recette doit avoir au moins un de ses ingrédients avec une quantité > 1");
+			r = null;
+		}
+
+		return r;
+	}
+
+	/**
+	 * Affiche le niveau 3 du menu : la gestion des stocks L'utilisateur pourra
+	 * consulter les sotcks et/ou ajouter des ingrédients à la machine
+	 */
+	private static void montrerMenuGestionStocks() {
+		//TODO method body
+	}
+
+	/**
+	 * Affiche le niveau 3 du menu : la modification d'une boisson Après avoir
+	 * sélectionné sa boisson, L'utilisateur choisi ce qu'il veut modifier
+	 */
+	private static void montrerMenuModificationBoisson() {
+		// TODO choisir boisson
+		String choix = "";
+
 		System.out.println("-- Modifier une boisson : " + choix + " --\n");
 		System.out.println("1 - Modifier la recette");
 		System.out.println("2 - Modifier le prix");
@@ -117,7 +221,7 @@ public class Main {
 			montrerMenuGestion();
 			break;
 		case "1":
-			// Afficher modification recette
+			// TODO Afficher modification recette
 
 			break;
 		case "2":
@@ -130,27 +234,44 @@ public class Main {
 		}
 	}
 
-	public static void montrerFormulaireGestionPrix(String nomBoisson){
-		System.out.println("Veuillez préciser le nouveau prix de la boisson");
+	/**
+	 * Formulaire permettant à l'utilisateur de modifier le prix d'une boisson
+	 * donnée
+	 * 
+	 * @param nomBoisson
+	 *            le nom de la boisson à modifier
+	 */
+	public static void montrerFormulaireGestionPrix(String nomBoisson) {
+		// saisie du montant
+		System.out.println("Nouveau prix de la boisson : ");
 		montrerFleche();
-		String montant = sc.next();
-		
-		try{
-			m.modifierPrixBoisson(nomBoisson, Integer.parseInt(montant));
-		}
-		catch(NumberFormatException e){
-			System.out.println("Le montant n'est pas valable, veuillez recommencer");
+		int montant = sc.nextInt();
+
+		try {
+			// vérification et modification
+			while (!Caisse.verifierMontant(montant)) {
+				afficherErreurMontant();
+				montrerFleche();
+				montant = sc.nextInt();
+			}
+			m.modifierPrixBoisson(nomBoisson, montant);
+		} catch (InputMismatchException e) {
+			afficherErreurMontant();
 			montrerFleche();
-			montant = sc.next();
+			montant = sc.nextInt();
 		}
 	}
-	
+
 	public static void montrerFleche() {
 		System.out.println("-> ");
 	}
 
 	public static void afficherErreurSaisie() {
 		System.out.println("Mauvais numéro, veuillez recommencer");
+	}
+
+	public static void afficherErreurMontant() {
+		System.out.println("Le montant n'est pas valide, veuillez recommencer");
 	}
 
 	/**
