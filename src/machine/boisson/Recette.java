@@ -37,6 +37,26 @@ public class Recette {
 		return res;
 	}
 	
+	/**
+	 * Vérifie si au moins un ingrédient de la recette a une quantité > 1
+	 * @return true si la recette est valide, false sinon
+	 */
+	public boolean estValide(){
+		boolean res = false;
+		int count = 0;
+		
+		for(String key : this.ingredients.keySet()){
+			if(this.ingredients.get(key) == 0)
+				count++;
+		}
+		
+		if(count != this.ingredients.size()){
+			res = true;
+		}
+			
+		return res;
+	}
+	
 	//GETTERS & SETTERS
 	public HashMap<String, Integer> getIngredients() {
 		return ingredients;
