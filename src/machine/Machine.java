@@ -24,7 +24,7 @@ public class Machine {
 	/**
 	 * Ajoute une nouvelle boisson à la machine si la taille de la liste de boissons est plus petite que 3
 	 * @param boisson la boisson à ajouter à la machine
-	 * @return la taille de la liste de boissons
+	 * @return la taille de la liste de boissons, -1 si la boisson n'est pas insérée
 	 */
 	public int ajouterBoisson(Boisson boisson){
 		int res = -1;
