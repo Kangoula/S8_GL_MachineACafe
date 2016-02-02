@@ -48,11 +48,17 @@ public class MachineTest {
 		this.m.ajouterStock(s1);
 		this.m.ajouterStock(s2);
 		this.m.ajouterStock(s3);
-	}
-
+	} 
+	
 	@Test
-	public void testAjoutBoisson() {
+	public void testAjoutBoisson1() {
 		assertSame(3, this.m.ajouterBoisson(this.b3));
+	}
+	
+	@Test
+	public void testAjoutBoisson2() {
+		this.m.ajouterBoisson(this.b3);
+		assertSame(-1, this.m.ajouterBoisson(this.b4));
 	}
 
 	@Test

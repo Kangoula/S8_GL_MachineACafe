@@ -27,12 +27,14 @@ public class Machine {
 	 * @return la taille de la liste de boissons
 	 */
 	public int ajouterBoisson(Boisson boisson){
-
+		int res = -1;
+		
 		if(this.listeBoissons.size() < 3){
-			this.listeBoissons.put(boisson.getNom().toLowerCase(), boisson);	
+			this.listeBoissons.put(boisson.getNom().toLowerCase(), boisson);
+			res = this.listeBoissons.size();
 		}
 		
-		return this.listeBoissons.size();
+		return res;
 	}
 	
 	/**
