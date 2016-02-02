@@ -7,27 +7,23 @@ package machine.caisse;
  */
 public class Caisse {
 	
-	public Caisse() {
-		
-	}
-	
 	/**
 	 * Rends la monnaie à l'utilisateur
-	 * @param montantInsere
-	 * @param prix
-	 * @return
+	 * @param montantInsere le montant inséré par l'utilisateur
+	 * @param prix le prix de la boisson
+	 * @return la montant rendu
 	 */
-	public static int renduMonnaie(int montantInsere, int prix){
+	public static int rendreMonnaie(int montantInsere, int prix){
 		
 		return montantInsere - prix;
 	}
 	
 	/**
 	 * Vérifie si le montant inséré par l'utilisateur est valide
-	 * @param montant
-	 * @return
+	 * @param montant le montant inséré par l'utilisateur
+	 * @return true si le montant est valide, false sinon
 	 */
-	public static boolean verificationMontant(int montant){
+	public static boolean verifierMontant(int montant){
 		return (montant <= 0);
 	}
 	
