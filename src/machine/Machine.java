@@ -105,7 +105,7 @@ public class Machine {
 	 * @param nomIngredient le nom de l'ingrédient dont on souhaite consulter le stock
 	 * @return la valeur actuelle du stock, -1 si le stock n'existe pas
 	 */
-	public int verifierStockIngredient(String nomIngredient){
+	public int getStockIngredient(String nomIngredient){
 		int res = -1;
 		String request = nomIngredient.toLowerCase();
 		

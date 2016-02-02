@@ -97,12 +97,12 @@ public class MachineTest {
 
 	@Test
 	public void testVerifierStockIngredient1() {
-		assertSame(50, this.m.verifierStockIngredient("lait"));
+		assertSame(50, this.m.getStockIngredient("lait"));
 	}
 	
 	@Test
 	public void testVerifierStockIngredient2() {
-		assertSame(-1, this.m.verifierStockIngredient("yolo"));
+		assertSame(-1, this.m.getStockIngredient("yolo"));
 	}
 
 }
