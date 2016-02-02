@@ -2,34 +2,94 @@ package machine;
 
 import java.util.Scanner;
 
+import javax.swing.plaf.synth.SynthSeparatorUI;
+
 import machine.boisson.Boisson;
 import machine.boisson.Recette;
 import machine.stock.Stock;
 
 public class Main {
 
+	public static Scanner sc = new Scanner(System.in);
+	public static Machine m = initialiserMachine();
+	
 	public static void main(String[] args) {
 
-		// création de la machine
-		Machine m = initialiserMachine();
-		
-		//lancement de l'interface
-		Scanner sc = new Scanner(System.in);
-		String res;
-		
-		res = sc.next();
-
-		while (!res.equals("0")) {
-
-			
-			res = sc.next();
-		}
+		// lancement de l'interface
+		montrerMenuPrincipal();
 
 		sc.close();
-		System.out.println("À bientôt !");
-
 	}
 
+	public static void montrerMenuPrincipal() {
+		System.out.println("-- Menu Principal --\n");
+		System.out.println("1 - Commander");
+		System.out.println("2 - Gestion de la machine");
+		System.out.println("0 - Quitter");
+		System.out.print("->");
+		
+		String res = sc.next();
+
+		switch (res) {
+		case "1":
+			montrerMenuCommande();
+			break;
+		case "2":
+			montrerMenuGestion();
+			break;
+		case "0":
+			System.out.println("À bientôt !");
+			break;
+		default:
+			System.out.println("Mauvais numéro, veuillez recommencer");
+			montrerMenuPrincipal();
+		}
+	}
+	
+	public static void montrerMenuCommande() {
+		System.out.println("-- Commander une boisson --");
+		montrerListeBoissons();
+		montrerFleche();
+	}
+
+	public static void montrerListeBoissons() {
+		System.out.println("..liste");
+	}
+	
+	public static void montrerMenuGestion() {
+		System.out.println("-- Gestion de la machine --\n");
+		System.out.println("1 - Ajouter une boisson");
+		System.out.println("2 - Supprimer une boisson");
+		System.out.println("3 - Modifier une boisson");
+		System.out.println("4 - Gestion des stocks");
+		System.out.println("0 - Retour");
+		montrerFleche();
+		
+		String res2 = sc.next();
+		
+		switch(res2){
+		case "0":
+			montrerMenuPrincipal();
+			break;
+		case "1":
+			break;
+		case "2":
+			break;
+		case "3":
+			break;
+		case "4":
+			break;
+		default:
+			System.out.println("Mauvais numéro, veuillez recommencer");
+			montrerMenuGestion();
+			break;
+		}
+	}
+	
+	public static void montrerFleche(){
+		System.out.println("-> ");
+	}
+	
 	/**
 	 * Initialise la machine a café avec des valeurs par défaut
 	 * 
