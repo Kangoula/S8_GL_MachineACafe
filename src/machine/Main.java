@@ -67,8 +67,7 @@ public class Main {
                 int montantPaye = fairePayer(b,0);
                 
                 // Vérifier que les stocks sont suffisants
-                boolean stocksOK = false;
-                //boolean stocksOK = verifierStocksIngredient(b);
+                boolean stocksOK = verifierStocksBoisson(b);
                 
                 if(stocksOK) {
                     // Rendre la monnaie
