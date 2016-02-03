@@ -89,6 +89,11 @@ public class Main {
                 
 	}
 
+        public static int fabriquerBoisson(Boisson b){
+            
+            return 1;
+        }
+        
         /**
          * Méthode qui permet de connaitre le montant à rendre en fonction
          * de la boisson choisie et du montant payé par l'utilisateur
@@ -164,7 +169,7 @@ public class Main {
 		while (it.hasNext()) {
 			tab[i] = (String) it.next();
                         boisson = Main.m.getListeBoissons().get(tab[i]).toString();
-			System.out.println(i + " - " + tab[i]);
+			System.out.println(i + " - " + boisson);
 			i++;
 		}
 		i = Main.saisirEntier(0, tab.length - 1);
