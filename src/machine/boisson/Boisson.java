@@ -42,5 +42,12 @@ public class Boisson{
 		this.prix = prix;
 	}
 
+    @Override
+    public String toString() {
+        String res = nom + " (" + prix + "€)";
+        //res += "\n[Recette]\n"+recette;
+        return res;
+    }
+
 	
 }

@@ -71,8 +71,8 @@ public class Main {
                 
                 if(stocksOK) {
                     // Rendre la monnaie
-                    //int montantARendre = rendreMonnaie(b,montantPaye);
-                    //System.out.println("La machine va vous rendre "+montantARendre+" euros.");
+                    int montantARendre = rendreMonnaie(b,montantPaye);
+                    System.out.println("La machine va vous rendre "+montantARendre+" euros.");
                     
                     // Fabriquer la boisson (décrémenter les stocks + attente)
                     //fabriquerBoisson(choix);
@@ -82,17 +82,30 @@ public class Main {
                     System.out.println("Plus de stock");
                     
                     // Rendre le montant payé
-                    //System.out.println("La machine va vous rendre"+montantPaye+"euros.");
+                    System.out.println("La machine va vous rendre"+montantPaye+"euros.");
                 }
                 
                 // Retour à l'accueil
                 
 	}
 
+        /**
+         * Méthode qui permet de connaitre le montant à rendre en fonction
+         * de la boisson choisie et du montant payé par l'utilisateur
+         * @param b
+         * @param montantPaye
+         * @return 
+         */
         public static int rendreMonnaie(Boisson b, int montantPaye) {
             return (montantPaye - b.getPrix());
         }
         
+        /**
+         * Méthode permettant de vérifier que les ingrédients d'une boisson
+         * sont en stock
+         * @param b
+         * @return 
+         */
         public static boolean verifierStocksBoisson(Boisson b) {
             // On récupère la recette 
             Recette r = b.getRecette();
@@ -114,6 +127,13 @@ public class Main {
             return false;
         }
         
+        /**
+         * Méthode permettant de faire payer un utilisateur
+         * (Boucle jusqu'à ce qu'il donne le bon montant).
+         * @param b
+         * @param montantPaye
+         * @return 
+         */
         public static int fairePayer(Boisson b, int montantPaye) {
             int prixBoisson = b.getPrix();
             if(montantPaye >= prixBoisson) {
@@ -126,7 +146,12 @@ public class Main {
                 return fairePayer(b,montantPaye+montant);
             }
         }
-
+        
+        /**
+         * Méthode qui permet à l'utilisateur de choisir une boisson
+         * dans la liste des boissons de la machine
+         * @return 
+         */
 	public static String choisirBoisson() {
 		int nbBoissons = Main.m.getListeBoissons().size();
 		String tab[] = new String[nbBoissons + 1];
@@ -135,8 +160,10 @@ public class Main {
 		int i = 1;
 		System.out.println("0 - Retour");
 		tab[0] = "Retour";
+                String boisson;
 		while (it.hasNext()) {
 			tab[i] = (String) it.next();
+                        boisson = Main.m.getListeBoissons().get(tab[i]).toString();
 			System.out.println(i + " - " + tab[i]);
 			i++;
 		}
