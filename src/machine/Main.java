@@ -93,10 +93,12 @@ public class Main {
         
 	public static String choisirBoisson() {
                 int nbBoissons = Main.m.getListeBoissons().size();
-                String tab[] = new String[nbBoissons];
+                String tab[] = new String[nbBoissons+1];
                 Set set = Main.m.getListeBoissons().keySet();
                 Iterator it = set.iterator();
-                int i = 0;
+                int i = 1;
+                System.out.println("0 - Retour");
+                tab[0] = "Retour";
                 while(it.hasNext()) {
                     tab[i] = (String)it.next();
                     System.out.println(i+" - "+tab[i]);
@@ -146,21 +148,29 @@ public class Main {
 		montrerFleche();
 
 		String res2 = sc.next();
-
+                String choix;
+                
 		switch (res2) {
 		case "0":
 			montrerMenuPrincipal();
 			break;
 		case "1":
 			montrerFormulaireAjoutBoisson();
+                        montrerMenuGestion();
 			break;
 		case "2":
-			String choix = choisirBoisson();
-			m.supprimerBoisson(choix);
+			choix = choisirBoisson();
+                        if(!choix.equals("Retour")) {
+                            m.supprimerBoisson(choix);
+                        }
                         montrerMenuGestion();
 			break;
 		case "3":
-			montrerMenuModificationBoisson();
+			choix = choisirBoisson();
+                        if(!choix.equals("Retour")) {
+                            montrerMenuModificationBoisson(choix);
+                        }
+                        montrerMenuGestion();
 			break;
 		case "4":
 			montrerMenuGestionStocks();
@@ -188,14 +198,13 @@ public class Main {
 
 		// demander la recette
 		Recette r = demanderRecette();
-		while(r == null){
-			r = demanderRecette();
-		}
 
 		// demander prix
 		System.out.println("Prix de la boisson : ");
 		montrerFleche();
-
+                prix = saisirEntier(1, 15);
+                
+                /*
 		try {
 			prix = sc.nextInt();
 			while (!Caisse.verifierMontant(prix)) {
@@ -208,6 +217,7 @@ public class Main {
 			montrerFleche();
 			prix = sc.nextInt();
 		}
+                */
 
 		// création et ajout de la boisson
 		b = new Boisson(r, nom, prix);
@@ -219,6 +229,14 @@ public class Main {
 
 	}
 
+        public static int saisirPrixBoisson() {
+            return saisirEntier(1, 15);
+        }
+        
+        public static int saisirQuantiteIngredient() {
+            return saisirEntier(0, 5000);
+        }
+        
 	/**
 	 * Formulaire permettant d'entrer une nouvelle recette dans la machine Il
 	 * est utilisé uniquement dans le cadre de la création d'une nouvelle
@@ -233,36 +251,22 @@ public class Main {
 		//on indique la quantité de chaque ingrédient que l'on a en stock
 		Set<String> keyset = m.getStockIngredients().keySet();
 
-		for (String key : keyset) {
-			
-			System.out.println("Quantité de " + key);
-			montrerFleche();
+                while(true) {
+                    for (String key : keyset) {
 
-			try {
-				montant = sc.nextInt();
-				
-				while (montant < 0) {
-					afficherErreurMontant();
-					montrerFleche();
-					montant = sc.nextInt();
-				}
+                            System.out.println("Quantité de " + key);
+                            montrerFleche();
+                            montant = saisirQuantiteIngredient();
+                            r.ajouterIngredient(key, montant);
+                    }
 
-				r.ajouterIngredient(key, montant);
-				
-			} catch (InputMismatchException e) {
-				afficherErreurMontant();
-				montrerFleche();
-				montant = sc.nextInt();
-			}
-		}
-		
-		//on vérifie qu'on a au moins 1 ingrédient dont la quantité est > 0
-		if(!r.estValide()){
-			System.out.println("La recette doit avoir au moins un de ses ingrédients avec une quantité > 1");
-			r = null;
-		}
-
-		return r;
+                    //on vérifie qu'on a au moins 1 ingrédient dont la quantité est > 0
+                    if(!r.estValide()){
+                            System.out.println("La recette doit avoir au moins un de ses ingrédients avec une quantité > 1");
+                    } else {
+                        return r;
+                    }
+                }
 	}
 
 	/**
@@ -277,9 +281,7 @@ public class Main {
 	 * Affiche le niveau 3 du menu : la modification d'une boisson Après avoir
 	 * sélectionné sa boisson, L'utilisateur choisi ce qu'il veut modifier
 	 */
-	private static void montrerMenuModificationBoisson() {
-		// TODO choisir boisson
-		String choix = "";
+	private static void montrerMenuModificationBoisson(String choix) {
 
 		System.out.println("-- Modifier une boisson : " + choix + " --\n");
 		System.out.println("1 - Modifier la recette");
@@ -302,7 +304,7 @@ public class Main {
 			break;
 		default:
 			afficherErreurSaisie();
-			montrerMenuModificationBoisson();
+			montrerMenuModificationBoisson(choix);
 			break;
 		}
 	}
@@ -318,21 +320,7 @@ public class Main {
 		// saisie du montant
 		System.out.println("Nouveau prix de la boisson : ");
 		montrerFleche();
-		int montant = sc.nextInt();
-
-		try {
-			// vérification et modification
-			while (!Caisse.verifierMontant(montant)) {
-				afficherErreurMontant();
-				montrerFleche();
-				montant = sc.nextInt();
-			}
-			m.modifierPrixBoisson(nomBoisson, montant);
-		} catch (InputMismatchException e) {
-			afficherErreurMontant();
-			montrerFleche();
-			montant = sc.nextInt();
-		}
+		int montant = saisirPrixBoisson();
 	}
 
 	public static void montrerFleche() {
