@@ -393,6 +393,9 @@ public class Main {
 		
 	}
 
+	/**
+	 * Affiche l'état actuel des sotcks d'ingrédients de la machine
+	 */
 	private static void montrerEtatStocks() {
 		
 		System.out.println("-- Etat des stocks --");
