@@ -369,7 +369,8 @@ public class Main {
 		
 		System.out.println("-- Gestion des stocks --");
 		System.out.println("1 - Vérifier l'état des stocks");
-		System.out.println("2 - Ajouter un ingrédient au stock");
+		System.out.println("2 - Ajouter du stock d'un ingrédient existant");
+                System.out.println("3 - Ajouter un nouvel ingrédient");
 		System.out.println("0 - Retour");
 		montrerFleche();
 		
@@ -383,16 +384,42 @@ public class Main {
 			montrerEtatStocks();
 			break;
 		case "2":
-			montrerAjouterIngredient();
+			montrerMenuAjouterStock();
+			break;
+                case "3":
+                        montrerMenuAjouterIngredient();
+                        break;
+		default:
+			montrerMenuGestion();
 			break;
 		}
 	}
 
-	private static void montrerAjouterIngredient() {
-		// TODO Auto-generated method stub
-		
-	}
+        public static void montrerMenuAjouterStock() {
+            //TODO
+        }
+        
+        public static void montrerMenuAjouterIngredient() {
+            //TODO
+            String nom;
+            int quantite;
 
+            // demander le nom
+            System.out.println("Nom du nouvel ingrédient : ");
+            montrerFleche();
+            nom = sc.next();
+
+            // demander quantité
+            System.out.println("Quantité initiale ");
+            montrerFleche();
+            quantite = saisirQuantiteIngredient();
+            
+            Stock stock = new Stock(nom,quantite);
+            
+            // ajout
+            Main.m.getStockIngredients().put(nom, stock);
+        }
+        
 	/**
 	 * Affiche l'état actuel des sotcks d'ingrédients de la machine
 	 */
