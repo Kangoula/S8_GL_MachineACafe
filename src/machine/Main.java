@@ -4,6 +4,8 @@ import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import machine.boisson.Boisson;
 import machine.boisson.Recette;
@@ -74,7 +76,7 @@ public class Main {
                     
                     // Fabriquer la boisson (décrémenter les stocks + attente)
                     fabriquerBoisson(b);
-                    System.out.println("La machine vient de vous donner votre boisson. Ce serait une bonne idée de la prendre !");
+                    System.out.println("\nLa machine vient de vous donner votre boisson. Ce serait une bonne idée de la prendre !\n");
                     
                 } else {
                     // Afficher un message :-(
@@ -88,7 +90,7 @@ public class Main {
                 
 	}
 
-        public static int fabriquerBoisson(Boisson b){
+        public static void fabriquerBoisson(Boisson b){
             // On récupère la recette 
             Recette r = b.getRecette();
             // On prépare l'itération sur les ingrédients de la recette de la boisson en paramètre
@@ -104,7 +106,14 @@ public class Main {
                     // On décrémente le stock de l'ingrédient
                     Main.m.setStockIngredient(nomIngredient, stockDisponible-besoin);
                 }
-            return 1;
+            for(int i=0;i<3;i++) {
+                System.out.print("...");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
         
         /**
