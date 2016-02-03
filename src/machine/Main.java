@@ -39,7 +39,7 @@ public class Main {
 		switch (res) {
 		case "1":
 			montrerMenuCommande();
-                        montrerMenuPrincipal();
+			montrerMenuPrincipal();
 			break;
 		case "2":
 			montrerMenuGestion();
@@ -55,150 +55,176 @@ public class Main {
 
 	public static void montrerMenuCommande() {
 		System.out.println("\n-- Commander votre boisson préférée --");
-                
-                // Choisir une boisson dans la liste des boissons disponibles
-                String choix = choisirBoisson();
-                montrerFleche();
-                
-                Boisson b = Main.m.getListeBoissons().get(choix);
-                
-                // Demander à l'utilisateur de payer
-                System.out.println("Combien tu lâches ?");
-                int montantPaye = fairePayer(b,0);
-                
-                // Vérifier que les stocks sont suffisants
-                boolean stocksOK = verifierStocksBoisson(b);
-                
-                if(stocksOK) {
-                    // Rendre la monnaie
-                    int montantARendre = rendreMonnaie(b,montantPaye);
-                    System.out.println("La machine va vous rendre "+montantARendre+" euros.");
-                    
-                    // Fabriquer la boisson (décrémenter les stocks + attente)
-                    fabriquerBoisson(b);
-                    System.out.println("\nLa machine vient de vous donner votre boisson. Ce serait une bonne idée de la prendre !\n");
-                    
-                } else {
-                    // Afficher un message :-(
-                    System.out.println("Plus de stock");
-                    
-                    // Rendre le montant payé
-                    System.out.println("La machine va vous rendre"+montantPaye+"euros.");
-                }
-                
-                // Retour à l'accueil
-                
+
+		// Choisir une boisson dans la liste des boissons disponibles
+		String choix = choisirBoisson();
+		montrerFleche();
+
+		Boisson b = Main.m.getListeBoissons().get(choix);
+
+		// Demander à l'utilisateur de payer
+		System.out.println("Combien tu lâches ?");
+		int montantPaye = fairePayer(b, 0);
+
+		// Vérifier que les stocks sont suffisants
+		boolean stocksOK = verifierStocksBoisson(b);
+
+		if (stocksOK) {
+			// Rendre la monnaie
+			int montantARendre = rendreMonnaie(b, montantPaye);
+			System.out.println("La machine va vous rendre " + montantARendre + " euros.");
+
+			// Fabriquer la boisson (décrémenter les stocks + attente)
+			fabriquerBoisson(b);
+			System.out.println(
+					"\nLa machine vient de vous donner votre boisson. Ce serait une bonne idée de la prendre !\n");
+
+		} else {
+			// Afficher un message :-(
+			System.out.println("Plus de stock");
+
+			// Rendre le montant payé
+			System.out.println("La machine va vous rendre" + montantPaye + "euros.");
+		}
+
+		// Retour à l'accueil
+
 	}
 
-        public static void fabriquerBoisson(Boisson b){
-            // On récupère la recette 
-            Recette r = b.getRecette();
-            // On prépare l'itération sur les ingrédients de la recette de la boisson en paramètre
-            Set set = r.getIngredients().keySet();
-            Iterator it = set.iterator();
-                // Pour chaque ingrédient
-                while(it.hasNext()) {
-                    String nomIngredient = (String)it.next();
-                    // Quel est son stock ?
-                    int stockDisponible = Main.m.getStockIngredient(nomIngredient);
-                    // Combien en a-t-on besoin ?
-                    int besoin = r.getIngredients().get(nomIngredient);
-                    // On décrémente le stock de l'ingrédient
-                    Main.m.setStockIngredient(nomIngredient, stockDisponible-besoin);
-                }
-            for(int i=0;i<3;i++) {
-                System.out.print("...");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        }
-        
-        /**
-         * Méthode qui permet de connaitre le montant à rendre en fonction
-         * de la boisson choisie et du montant payé par l'utilisateur
-         * @param b
-         * @param montantPaye
-         * @return 
-         */
-        public static int rendreMonnaie(Boisson b, int montantPaye) {
-            return (montantPaye - b.getPrix());
-        }
-        
-        /**
-         * Méthode permettant de vérifier que les ingrédients d'une boisson
-         * sont en stock
-         * @param b
-         * @return 
-         */
-        public static boolean verifierStocksBoisson(Boisson b) {
-            // On récupère la recette 
-            Recette r = b.getRecette();
-            // On prépare l'itération sur les ingrédients de la recette de la boisson en paramètre
-            Set set = r.getIngredients().keySet();
-            Iterator it = set.iterator();
-                // Pour chaque ingrédient
-                while(it.hasNext()) {
-                    String i = (String)it.next();
-                    // Quel est son stock ?
-                    int stockDisponible = Main.m.getStockIngredient(i);
-                    // Combien en a-t-on besoin ?
-                    int besoin = r.getIngredients().get(i);
-                    // OK ?
-                    if(stockDisponible>=besoin) {
-                        return true;
-                    }
-                }
-            return false;
-        }
-        
-        /**
-         * Méthode permettant de faire payer un utilisateur
-         * (Boucle jusqu'à ce qu'il donne le bon montant).
-         * @param b
-         * @param montantPaye
-         * @return 
-         */
-        public static int fairePayer(Boisson b, int montantPaye) {
-            int prixBoisson = b.getPrix();
-            if(montantPaye >= prixBoisson) {
-                return montantPaye;
-            } else {
-                if(montantPaye != 0) {
-                    System.out.println("Il va en falloir encore un peu si tu le veux ton truc... Combien tu lâches ?");
-                }
-                int montant = saisirEntier(0, 15);
-                return fairePayer(b,montantPaye+montant);
-            }
-        }
-        
-        /**
-         * Méthode qui permet à l'utilisateur de choisir une boisson
-         * dans la liste des boissons de la machine
-         * @return 
-         */
+	public static void fabriquerBoisson(Boisson b) {
+		// On récupère la recette
+		Recette r = b.getRecette();
+		// On prépare l'itération sur les ingrédients de la recette de la
+		// boisson en paramètre
+		Set set = r.getIngredients().keySet();
+		Iterator it = set.iterator();
+		// Pour chaque ingrédient
+		while (it.hasNext()) {
+			String nomIngredient = (String) it.next();
+			// Quel est son stock ?
+			int stockDisponible = Main.m.getStockIngredient(nomIngredient);
+			// Combien en a-t-on besoin ?
+			int besoin = r.getIngredients().get(nomIngredient);
+			// On décrémente le stock de l'ingrédient
+			Main.m.setStockIngredient(nomIngredient, stockDisponible - besoin);
+		}
+		for (int i = 0; i < 3; i++) {
+			System.out.print("...");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException ex) {
+				Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+			}
+		}
+	}
+
+	/**
+	 * Méthode qui permet de connaitre le montant à rendre en fonction de la
+	 * boisson choisie et du montant payé par l'utilisateur
+	 * 
+	 * @param b
+	 * @param montantPaye
+	 * @return
+	 */
+	public static int rendreMonnaie(Boisson b, int montantPaye) {
+		return (montantPaye - b.getPrix());
+	}
+
+	/**
+	 * Méthode permettant de vérifier que les ingrédients d'une boisson sont en
+	 * stock
+	 * 
+	 * @param b
+	 * @return
+	 */
+	public static boolean verifierStocksBoisson(Boisson b) {
+		// On récupère la recette
+		Recette r = b.getRecette();
+		// On prépare l'itération sur les ingrédients de la recette de la
+		// boisson en paramètre
+		Set set = r.getIngredients().keySet();
+		Iterator it = set.iterator();
+		// Pour chaque ingrédient
+		while (it.hasNext()) {
+			String i = (String) it.next();
+			// Quel est son stock ?
+			int stockDisponible = Main.m.getStockIngredient(i);
+			// Combien en a-t-on besoin ?
+			int besoin = r.getIngredients().get(i);
+			// OK ?
+			if (stockDisponible >= besoin) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
+	 * Méthode récursive permettant de faire payer un utilisateur (Boucle
+	 * jusqu'à ce qu'il donne le bon montant).
+	 * 
+	 * @param boisson
+	 *            Le boisson commandée
+	 * @param montantPaye
+	 *            Le montant inséré dans la machine par l'utilisateur
+	 * @return le montant total payé par l'utilisateur
+	 */
+	public static int fairePayer(Boisson boisson, int montantPaye) {
+		int prixBoisson = boisson.getPrix();
+
+		if (montantPaye >= prixBoisson) {
+			return montantPaye;
+		} else {
+
+			if (montantPaye != 0) {
+				System.out.println("Il va en falloir encore un peu si tu le veux ton truc... Combien tu lâches ?");
+			}
+
+			int montant = saisirEntier(0, 15);
+			return fairePayer(boisson, montantPaye + montant);
+		}
+	}
+
+	/**
+	 * Méthode qui permet à l'utilisateur de choisir une boisson dans la liste
+	 * des boissons de la machine
+	 * 
+	 * @return le nom de la boisson choisie par l'utilisateur
+	 */
 	public static String choisirBoisson() {
+
 		int nbBoissons = Main.m.getListeBoissons().size();
 		String tab[] = new String[nbBoissons + 1];
-		Set set = Main.m.getListeBoissons().keySet();
-		Iterator it = set.iterator();
+
+		Set<String> set = Main.m.getListeBoissons().keySet();
+		Iterator<String> it = set.iterator();
+
 		int i = 1;
-		System.out.println("0 - Retour");
 		tab[0] = "Retour";
-                String boisson;
+		String boisson;
+
+		System.out.println("0 - Retour");
+
 		while (it.hasNext()) {
 			tab[i] = (String) it.next();
-                        boisson = Main.m.getListeBoissons().get(tab[i]).toString();
+			boisson = Main.m.getListeBoissons().get(tab[i]).toString();
 			System.out.println(i + " - " + boisson);
 			i++;
 		}
-		i = Main.saisirEntier(0, tab.length - 1);
+		
+		montrerFleche();
+		i = saisirEntier(0, tab.length - 1);
+
 		return tab[i];
 	}
 
+	/**
+	 * Vérifie si la saisie de l'utilisateur est bien un entier.
+	 * Tant que la saisie n'est pas correcte, on redemande à l'utilisateur d'entrer une valeur
+	 * @return l'entier saisi lorsqu'il est correct
+	 */
 	public static int saisirEntier() {
+		
 		while (true) {
 			try {
 				int nb = sc.nextInt();
@@ -209,6 +235,13 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Vérifie si l'entier saisi est compris entre deux valeurs.
+	 * Tant que la saisie n'est pas correcte, on redemande à l'utilisateur de rentrer une valeur
+	 * @param min le minimum qu'il est possible de saisir
+	 * @param max le maximum qu'il est possible de saisir
+	 * @return le montant saisi lorsqu'il est correct
+	 */
 	public static int saisirEntier(int min, int max) {
 		while (true) {
 			try {
@@ -217,9 +250,11 @@ public class Main {
 					return nb;
 				} else {
 					System.out.println("Vous êtes sérieux ? Essayez encore...");
+					montrerFleche();
 				}
 			} catch (InputMismatchException ime) {
 				System.out.println("Vous êtes sérieux ? Essayez encore...");
+				montrerFleche();
 				sc.next();
 			}
 		}
@@ -277,34 +312,37 @@ public class Main {
 	 * boisson et de l'ajouter à la machine
 	 */
 	private static void montrerFormulaireAjoutBoisson() {
-		String nom;
-		Boisson b;
-		int prix;
 
-		// demander le nom
-		System.out.println("Nom de la boisson : ");
-		montrerFleche();
-		nom = sc.next();
+		// si on peut insérer des boissons, on le fait
+		if (!(m.getListeBoissons().size() >= m.getNombreBoissonMax())) {
+			String nom;
+			Boisson b;
+			int prix;
 
-		// demander la recette
-		Recette r = demanderRecette();
+			// demander le nom
+			System.out.println("Nom de la boisson : ");
+			montrerFleche();
+			nom = sc.next();
 
-		// demander prix
-		System.out.println("Prix de la boisson : ");
-		montrerFleche();
-		prix = saisirEntier(1, 15);
+			// demander la recette
+			Recette r = demanderRecette();
 
-		/*
-		 * try { prix = sc.nextInt(); while (!Caisse.verifierMontant(prix)) {
-		 * afficherErreurMontant(); montrerFleche(); prix = sc.nextInt(); } }
-		 * catch (InputMismatchException e) { afficherErreurMontant();
-		 * montrerFleche(); prix = sc.nextInt(); }
-		 */
+			// demander prix
+			System.out.println("Prix de la boisson : ");
+			montrerFleche();
+			prix = saisirEntier(1, 15);
 
-		// création et ajout de la boisson
-		b = new Boisson(r, nom, prix);
+			/*
+			 * try { prix = sc.nextInt(); while (!Caisse.verifierMontant(prix))
+			 * { afficherErreurMontant(); montrerFleche(); prix = sc.nextInt();
+			 * } } catch (InputMismatchException e) { afficherErreurMontant();
+			 * montrerFleche(); prix = sc.nextInt(); }
+			 */
 
-		if (m.ajouterBoisson(b) == -1) {
+			// création et ajout de la boisson
+			b = new Boisson(r, nom, prix);
+			m.ajouterBoisson(b);
+		} else {
 			System.out.println("Le nombre maximum de boisson est déjà atteint,\nla boisson ne peut pas être ajoutée");
 			montrerMenuGestion();
 		}
@@ -335,14 +373,17 @@ public class Main {
 	}
 
 	/**
-	 * Saisie de la recette par l'utilisateur en fonction d'une liste d'ingrédients donnée
-	 * @param listeIngredients la liste d'ingrédients possibles
+	 * Saisie de la recette par l'utilisateur en fonction d'une liste
+	 * d'ingrédients donnée
+	 * 
+	 * @param listeIngredients
+	 *            la liste d'ingrédients possibles
 	 * @return la recette complétée
 	 */
-	private static Recette saisirRecette(Set<String> listeIngredients){
+	private static Recette saisirRecette(Set<String> listeIngredients) {
 		int montant;
 		Recette r = new Recette();
-		
+
 		while (true) {
 			for (String key : listeIngredients) {
 
@@ -360,23 +401,23 @@ public class Main {
 			}
 		}
 	}
-	
+
 	/**
 	 * Affiche le niveau 3 du menu : la gestion des stocks L'utilisateur pourra
 	 * consulter les sotcks et/ou ajouter des ingrédients à la machine
 	 */
 	private static void montrerMenuGestionStocks() {
-		
+
 		System.out.println("-- Gestion des stocks --");
 		System.out.println("1 - Vérifier l'état des stocks");
 		System.out.println("2 - Ajouter du stock d'un ingrédient existant");
-                System.out.println("3 - Ajouter un nouvel ingrédient");
+		System.out.println("3 - Ajouter un nouvel ingrédient");
 		System.out.println("0 - Retour");
 		montrerFleche();
-		
+
 		String res = sc.next();
-		
-		switch(res){
+
+		switch (res) {
 		case "0":
 			montrerMenuGestion();
 			break;
@@ -386,48 +427,48 @@ public class Main {
 		case "2":
 			montrerMenuAjouterStock();
 			break;
-                case "3":
-                        montrerMenuAjouterIngredient();
-                        break;
+		case "3":
+			montrerMenuAjouterIngredient();
+			break;
 		default:
 			montrerMenuGestion();
 			break;
 		}
 	}
 
-        public static void montrerMenuAjouterStock() {
-            //TODO
-        }
-        
-        public static void montrerMenuAjouterIngredient() {
-            //TODO
-            String nom;
-            int quantite;
+	public static void montrerMenuAjouterStock() {
+		// TODO
+	}
 
-            // demander le nom
-            System.out.println("Nom du nouvel ingrédient : ");
-            montrerFleche();
-            nom = sc.next();
+	public static void montrerMenuAjouterIngredient() {
+		// TODO
+		String nom;
+		int quantite;
 
-            // demander quantité
-            System.out.println("Quantité initiale ");
-            montrerFleche();
-            quantite = saisirQuantiteIngredient();
-            
-            Stock stock = new Stock(nom,quantite);
-            
-            // ajout
-            Main.m.getStockIngredients().put(nom, stock);
-        }
-        
+		// demander le nom
+		System.out.println("Nom du nouvel ingrédient : ");
+		montrerFleche();
+		nom = sc.next();
+
+		// demander quantité
+		System.out.println("Quantité initiale ");
+		montrerFleche();
+		quantite = saisirQuantiteIngredient();
+
+		Stock stock = new Stock(nom, quantite);
+
+		// ajout
+		Main.m.getStockIngredients().put(nom, stock);
+	}
+
 	/**
 	 * Affiche l'état actuel des sotcks d'ingrédients de la machine
 	 */
 	private static void montrerEtatStocks() {
-		
+
 		System.out.println("-- Etat des stocks --");
-		
-		for(String key : m.getStockIngredients().keySet()){
+
+		for (String key : m.getStockIngredients().keySet()) {
 			System.out.print(key);
 			System.out.print(" : ");
 			System.out.print(m.getStockIngredient(key));
@@ -435,8 +476,8 @@ public class Main {
 		}
 		System.out.println("0 - Retour");
 		montrerFleche();
-		
-		while(!sc.next().equals("0")){
+
+		while (!sc.next().equals("0")) {
 			System.out.println("Biiiiip, mauvaise réponse, essaie encore...");
 			montrerFleche();
 		}
@@ -478,20 +519,20 @@ public class Main {
 	 * Formulaire permettant à l'utilisateur de modifier le prix d'une boisson
 	 * choisie
 	 * 
-	 * @param nomBoisson le nom de la boisson choisie
+	 * @param nomBoisson
+	 *            le nom de la boisson choisie
 	 */
 	public static void montrerMenuModifierRecette(String nomBoisson) {
-		System.out.println("-- Modifier la recette de : "+ nomBoisson +"--");
-		
-		//récupération de ingrédients de la boisson choisie
+		System.out.println("-- Modifier la recette de : " + nomBoisson + "--");
+
+		// récupération de ingrédients de la boisson choisie
 		Set<String> keyset = m.getListeBoissons().get(nomBoisson).getRecette().getIngredients().keySet();
-		
+
 		Recette r = m.modifierRecetteBoisson(nomBoisson, saisirRecette(keyset));
-		
-		if(r == null){
+
+		if (r == null) {
 			System.err.println("Erreur, la boisson n'existe pas");
-		}
-		else {
+		} else {
 			System.out.println(r);
 		}
 		montrerMenuModificationBoisson(nomBoisson);
@@ -501,7 +542,8 @@ public class Main {
 	 * Formulaire permettant à l'utilisateur de modifier le prix d'une boisson
 	 * donnée
 	 * 
-	 * @param nomBoisson le nom de la boisson à modifier
+	 * @param nomBoisson
+	 *            le nom de la boisson à modifier
 	 */
 	public static void montrerFormulaireGestionPrix(String nomBoisson) {
 		// saisie du montant
