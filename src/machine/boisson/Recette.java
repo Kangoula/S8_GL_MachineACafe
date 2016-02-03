@@ -57,6 +57,19 @@ public class Recette {
 		return res;
 	}
 	
+	public String toString(){
+		StringBuffer res = new StringBuffer();
+		
+		for(String key : this.ingredients.keySet()){
+			res.append(key);
+			res.append(" : ");
+			res.append(this.ingredients.get(key));
+			res.append(" unités\n");
+		}
+		
+		return res.toString();
+	}
+	
 	//GETTERS & SETTERS
 	public HashMap<String, Integer> getIngredients() {
 		return ingredients;

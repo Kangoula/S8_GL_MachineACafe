@@ -44,17 +44,16 @@ public class Machine {
 	 * @param quantite la quantite de l'ingrédient à ajouter à la recette
 	 * @return la nouvelle recette de la boisson, null si la boisson n'est pas trouvée
 	 */
-	public Recette modifierRecetteBoisson(String nomBoisson, String nomIngredient, int quantite){		
-		Recette r = null;
+	public Recette modifierRecetteBoisson(String nomBoisson, Recette recette){		
+		Recette res = null;
 		
 		if(this.listeBoissons.containsKey(nomBoisson)){
 			Boisson b = this.listeBoissons.get(nomBoisson);
-			r = b.getRecette();
-			r.ajouterIngredient(nomIngredient, quantite);
-			b.setRecette(r);
+			b.setRecette(recette);
+			res = b.getRecette();
 		}
 		
-		return r;
+		return res;
 	}
 	
 	/**
