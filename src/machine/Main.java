@@ -37,6 +37,7 @@ public class Main {
 		switch (res) {
 		case "1":
 			montrerMenuCommande();
+                        montrerMenuPrincipal();
 			break;
 		case "2":
 			montrerMenuGestion();
@@ -72,7 +73,8 @@ public class Main {
                     System.out.println("La machine va vous rendre "+montantARendre+" euros.");
                     
                     // Fabriquer la boisson (décrémenter les stocks + attente)
-                    //fabriquerBoisson(choix);
+                    fabriquerBoisson(b);
+                    System.out.println("La machine vient de vous donner votre boisson. Ce serait une bonne idée de la prendre !");
                     
                 } else {
                     // Afficher un message :-(
@@ -87,7 +89,21 @@ public class Main {
 	}
 
         public static int fabriquerBoisson(Boisson b){
-            
+            // On récupère la recette 
+            Recette r = b.getRecette();
+            // On prépare l'itération sur les ingrédients de la recette de la boisson en paramètre
+            Set set = r.getIngredients().keySet();
+            Iterator it = set.iterator();
+                // Pour chaque ingrédient
+                while(it.hasNext()) {
+                    String nomIngredient = (String)it.next();
+                    // Quel est son stock ?
+                    int stockDisponible = Main.m.getStockIngredient(nomIngredient);
+                    // Combien en a-t-on besoin ?
+                    int besoin = r.getIngredients().get(nomIngredient);
+                    // On décrémente le stock de l'ingrédient
+                    Main.m.setStockIngredient(nomIngredient, stockDisponible-besoin);
+                }
             return 1;
         }
         

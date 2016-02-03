@@ -116,6 +116,10 @@ public class Machine {
 		
 		return res;
 	}
+        
+        public void setStockIngredient(String ingredient, int nouveauStock){
+            this.stockIngredients.get(ingredient).setQuantite(nouveauStock);
+        }
 
 	//GETTERS & SETTERS
 	public HashMap<String, Stock> getStockIngredients() {
