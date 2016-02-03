@@ -55,45 +55,78 @@ public class Main {
 
 	public static void montrerMenuCommande() {
 		System.out.println("\n-- Commander votre boisson préférée --");
-
-		// Choisir une boisson dans la liste des boissons disponibles
-		String choix = choisirBoisson();
-		montrerFleche();
-
-		Boisson b = Main.m.getListeBoissons().get(choix);
-
-		// Demander à l'utilisateur de payer
-		int montantPaye = fairePayer(b);
-
-		// Vérifier que les stocks sont suffisants
-		boolean stocksOK = false;
-		// boolean stocksOK = verifierStocks(choix);
-
-		if (stocksOK) {
-			// Rendre la monnaie
-			// int montantARendre = rendreMonnaie(choix,montantPaye);
-			// System.out.println("La machine va vous rendre "+montantARendre+"
-			// euros.");
-
-			// Fabriquer la boisson (décrémenter les stocks + attente)
-			// fabriquerBoisson(choix);
-
-		} else {
-			// Afficher un message :-(
-			System.out.println("Plus de stock");
-
-			// Rendre le montant payé
-			// System.out.println("La machine va vous
-			// rendre"+montantPaye+"euros.");
-		}
-
-		// Retour à l'accueil
-
+                
+                // Choisir une boisson dans la liste des boissons disponibles
+                String choix = choisirBoisson();
+                montrerFleche();
+                
+                Boisson b = Main.m.getListeBoissons().get(choix);
+                
+                // Demander à l'utilisateur de payer
+                System.out.println("Combien tu lâches ?");
+                int montantPaye = fairePayer(b,0);
+                
+                // Vérifier que les stocks sont suffisants
+                boolean stocksOK = false;
+                //boolean stocksOK = verifierStocksIngredient(b);
+                
+                if(stocksOK) {
+                    // Rendre la monnaie
+                    //int montantARendre = rendreMonnaie(b,montantPaye);
+                    //System.out.println("La machine va vous rendre "+montantARendre+" euros.");
+                    
+                    // Fabriquer la boisson (décrémenter les stocks + attente)
+                    //fabriquerBoisson(choix);
+                    
+                } else {
+                    // Afficher un message :-(
+                    System.out.println("Plus de stock");
+                    
+                    // Rendre le montant payé
+                    //System.out.println("La machine va vous rendre"+montantPaye+"euros.");
+                }
+                
+                // Retour à l'accueil
+                
 	}
 
-	public static int fairePayer(Boisson b) {
-		return 0;
-	}
+        public static int rendreMonnaie(Boisson b, int montantPaye) {
+            return (montantPaye - b.getPrix());
+        }
+        
+        public static boolean verifierStocksBoisson(Boisson b) {
+            // On récupère la recette 
+            Recette r = b.getRecette();
+            // On prépare l'itération sur les ingrédients de la recette de la boisson en paramètre
+            Set set = r.getIngredients().keySet();
+            Iterator it = set.iterator();
+                // Pour chaque ingrédient
+                while(it.hasNext()) {
+                    String i = (String)it.next();
+                    // Quel est son stock ?
+                    int stockDisponible = Main.m.getStockIngredient(i);
+                    // Combien en a-t-on besoin ?
+                    int besoin = r.getIngredients().get(i);
+                    // OK ?
+                    if(stockDisponible>=besoin) {
+                        return true;
+                    }
+                }
+            return false;
+        }
+        
+        public static int fairePayer(Boisson b, int montantPaye) {
+            int prixBoisson = b.getPrix();
+            if(montantPaye >= prixBoisson) {
+                return montantPaye;
+            } else {
+                if(montantPaye != 0) {
+                    System.out.println("Il va en falloir encore un peu si tu le veux ton truc... Combien tu lâches ?");
+                }
+                int montant = saisirEntier(0, 15);
+                return fairePayer(b,montantPaye+montant);
+            }
+        }
 
 	public static String choisirBoisson() {
 		int nbBoissons = Main.m.getListeBoissons().size();
