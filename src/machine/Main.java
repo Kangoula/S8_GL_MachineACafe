@@ -357,7 +357,31 @@ public class Main {
 	 * consulter les sotcks et/ou ajouter des ingrédients à la machine
 	 */
 	private static void montrerMenuGestionStocks() {
-		// TODO method body
+		
+		System.out.println("-- Gestion des stocks --");
+		System.out.println("1 - Vérifier l'état des stocks");
+		System.out.println("2 - Ajouter un ingrédient au stock");
+		System.out.println("0 - Retour");
+		montrerFleche();
+		
+		String res = sc.next();
+		
+		switch(res){
+		case "0":
+			montrerMenuGestion();
+			break;
+		case "1":
+			montrerEtatStocks();
+			break;
+		case "2":
+			//TODO ajouter ingrédient au stock
+			break;
+		}
+	}
+
+	private static void montrerEtatStocks() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
