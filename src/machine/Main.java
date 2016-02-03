@@ -383,14 +383,34 @@ public class Main {
 			montrerEtatStocks();
 			break;
 		case "2":
-			//TODO ajouter ingrédient au stock
+			montrerAjouterIngredient();
 			break;
 		}
 	}
 
-	private static void montrerEtatStocks() {
+	private static void montrerAjouterIngredient() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	private static void montrerEtatStocks() {
+		
+		System.out.println("-- Etat des stocks --");
+		
+		for(String key : m.getStockIngredients().keySet()){
+			System.out.print(key);
+			System.out.print(" : ");
+			System.out.print(m.getStockIngredient(key));
+			System.out.println(" unités");
+		}
+		System.out.println("0 - Retour");
+		montrerFleche();
+		
+		while(!sc.next().equals("0")){
+			System.out.println("Biiiiip, mauvaise réponse, essaie encore...");
+			montrerFleche();
+		}
+		montrerMenuGestionStocks();
 	}
 
 	/**
