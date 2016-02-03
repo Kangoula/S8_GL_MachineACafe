@@ -435,11 +435,18 @@ public class Main {
 			break;
 		}
 	}
-
+	
+	/**
+	 * Montrer le dernier niveau du menu : celui qui permet de remplir le stock d'ingrédients déjà dans la machine
+	 */
 	public static void montrerMenuAjouterStock() {
 		// TODO
 	}
 
+	/**
+	 * Montre le denrier niveau du menu : 
+	 * celui qui permet d'ajouter un nouvel ingrédient à la machine
+	 */
 	public static void montrerMenuAjouterIngredient() {
 		// TODO
 		String nom;
