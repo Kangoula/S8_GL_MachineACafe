@@ -1,6 +1,7 @@
 package machine;
 
 import java.util.InputMismatchException;
+import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -51,14 +52,86 @@ public class Main {
 	}
 
 	public static void montrerMenuCommande() {
-		System.out.println("-- Commander une boisson --");
-		montrerListeBoissons();
-		montrerFleche();
+		System.out.println("\n-- Commander votre boisson préférée --");
+                
+                // Choisir une boisson dans la liste des boissons disponibles
+                String choix = choisirBoisson();
+                montrerFleche();
+                
+                Boisson b = Main.m.getListeBoissons().get(choix);
+                
+                // Demander à l'utilisateur de payer
+                int montantPaye = fairePayer(b);
+                
+                // Vérifier que les stocks sont suffisants
+                boolean stocksOK = false;
+                //boolean stocksOK = verifierStocks(choix);
+                
+                if(stocksOK) {
+                    // Rendre la monnaie
+                    //int montantARendre = rendreMonnaie(choix,montantPaye);
+                    //System.out.println("La machine va vous rendre "+montantARendre+" euros.");
+                    
+                    // Fabriquer la boisson (décrémenter les stocks + attente)
+                    //fabriquerBoisson(choix);
+                    
+                } else {
+                    // Afficher un message :-(
+                    System.out.println("Plus de stock");
+                    
+                    // Rendre le montant payé
+                    //System.out.println("La machine va vous rendre"+montantPaye+"euros.");
+                }
+                
+                // Retour à l'accueil
+                
 	}
 
-	public static void montrerListeBoissons() {
-		System.out.println("..liste");
+        public static int fairePayer(Boisson b) {
+            return 0;
+        }
+        
+	public static String choisirBoisson() {
+                int nbBoissons = Main.m.getListeBoissons().size();
+                String tab[] = new String[nbBoissons];
+                Set set = Main.m.getListeBoissons().keySet();
+                Iterator it = set.iterator();
+                int i = 0;
+                while(it.hasNext()) {
+                    tab[i] = (String)it.next();
+                    System.out.println(i+" - "+tab[i]);
+                    i++;
+                }
+                i = Main.saisirEntier(0,tab.length-1);
+                return tab[i];
 	}
+        
+        public static int saisirEntier() {
+            while(true) {
+                try {
+                    int nb = sc.nextInt();
+                    return nb;
+                } catch(InputMismatchException ime) {
+                    System.out.println("Vous êtes sérieux ? Essayez encore...");
+                }
+            }
+        }
+        
+        public static int saisirEntier(int min, int max) {
+            while(true) {
+                try {
+                    int nb = sc.nextInt();
+                    if((nb>=min)&&(nb<=max)) {
+                        return nb;
+                    } else {
+                        System.out.println("Vous êtes sérieux ? Essayez encore...");
+                    }
+                } catch(InputMismatchException ime) {
+                    System.out.println("Vous êtes sérieux ? Essayez encore...");
+                    sc.next();
+                }
+            }
+        }
 
 	/**
 	 * Affiche le niveau 2 du menu : Le menu de gestion de la machine
