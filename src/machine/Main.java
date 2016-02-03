@@ -5,11 +5,8 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.Set;
 
-import com.sun.org.apache.xml.internal.utils.ListingErrorHandler;
-
 import machine.boisson.Boisson;
 import machine.boisson.Recette;
-import machine.caisse.Caisse;
 import machine.stock.Stock;
 
 public class Main {
