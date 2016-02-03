@@ -37,6 +37,11 @@ public class MachineTest {
 		r1.ajouterIngredient("Chocolat", 0);
 		r1.ajouterIngredient("SUCRE", 1);
 		
+		r4.ajouterIngredient("Café", 0);
+		r4.ajouterIngredient("LAit", 4);
+		r4.ajouterIngredient("Chocolat", 4);
+		r4.ajouterIngredient("SUCRE", 1);
+		
 		this.b1 = new Boisson(r1, "Café Au Lait", 3);
 		this.b2 = new Boisson(r2, "Chocolat Chaud",2);
 		this.b3 = new Boisson(r3, "Capuccino", 4);
@@ -63,12 +68,12 @@ public class MachineTest {
 
 	@Test
 	public void testModifierRecetteBoisson1() {
-		 assertEquals(4, this.m.modifierRecetteBoisson("café au lait", "chocolat", 4).getQte("Chocolat"));
+		 assertEquals(4, this.m.modifierRecetteBoisson("café au lait", this.r4).getQte("Chocolat"));
 	}
 	
 	@Test
 	public void testModifierRecetteBoisson2() {
-		 assertNull(this.m.modifierRecetteBoisson("test", "café", 1));
+		 assertNull(this.m.modifierRecetteBoisson("test", this.r4));
 	}
 	
 	@Test
