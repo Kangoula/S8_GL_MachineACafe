@@ -155,9 +155,9 @@ public class Main {
 			montrerFormulaireAjoutBoisson();
 			break;
 		case "2":
-			// TODO choisir boisson
-			String choix = "";
+			String choix = choisirBoisson();
 			m.supprimerBoisson(choix);
+                        montrerMenuGestion();
 			break;
 		case "3":
 			montrerMenuModificationBoisson();
