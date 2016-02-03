@@ -26,12 +26,12 @@ public class CaisseTest {
 	
 	@Test
 	public void testverificationMontant() {
-		assertTrue(Caisse.verifierMontant(-1));
+		assertFalse(Caisse.verifierMontant(-1));
 	}
 	
 	@Test
 	public void testverificationMontant2() {
-		assertFalse(Caisse.verifierMontant(1));
+		assertTrue(Caisse.verifierMontant(1));
 	}
 
 }
