@@ -14,12 +14,10 @@ import machine.stock.Stock;
 
 public class Main {
 
-	public static Machine machine = initialiserMachine();
-
 	public static void main(String[] args) {
 
 		// lancement de l'interface
-		Menu.montrerMenuPrincipal(machine);
+		Menu.montrerMenuPrincipal(initialiserMachine());
 	}
 	
 	/**
