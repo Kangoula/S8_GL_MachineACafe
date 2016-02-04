@@ -118,7 +118,7 @@ public class Machine {
 		while (it.hasNext()) {
 			String i = (String) it.next();
 			// Quel est son stock ?
-			int stockDisponible = Main.machine.getStockIngredient(i);
+			int stockDisponible = this.getStockIngredient(i);
 			// Combien en a-t-on besoin ?
 			int besoin = r.getIngredients().get(i);
 			// OK ?
