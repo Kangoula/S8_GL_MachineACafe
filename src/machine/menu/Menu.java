@@ -48,12 +48,21 @@ public class Menu {
 
 	/**
 	 * Montrer le dernier niveau du menu : celui qui permet de remplir le stock
-	 * d'ingrédients déjà dans la machine
+	 * d'ingrédients déjà dans la machine.
+	 * 
+	 * @param machine
+	 *            la machine a café
 	 */
 	public static void montrerMenuAjouterStock(Machine machine) {
 		// TODO
 	}
 
+	/**
+	 * Affiche le menu qui permet de commander une boisson
+	 * 
+	 * @param machine
+	 *            la machine à café
+	 */
 	public static void montrerMenuCommande(Machine machine) {
 		System.out.println("\n-- Commander votre boisson préférée --");
 
@@ -94,6 +103,9 @@ public class Menu {
 
 	/**
 	 * Affiche le niveau 2 du menu : Le menu de gestion de la machine
+	 * 
+	 * @param machine
+	 *            la machine a café
 	 */
 	public static void montrerMenuGestion(Machine machine) {
 		System.out.println("-- Gestion de la machine --\n");
@@ -139,9 +151,17 @@ public class Menu {
 		}
 	}
 
-	public static void fabriquerBoisson(Boisson b, Machine machine) {
+	/**
+	 * Affiche l'état de la fabrication de la boisson.
+	 * 
+	 * @param boisson
+	 *            la boisson à fabriquer
+	 * @param machine
+	 *            la machine à café
+	 */
+	public static void fabriquerBoisson(Boisson boisson, Machine machine) {
 		// On récupère la recette
-		Recette r = b.getRecette();
+		Recette r = boisson.getRecette();
 		// On prépare l'itération sur les ingrédients de la recette de la
 		// boisson en paramètre
 		Set<String> set = r.getIngredients().keySet();
@@ -150,7 +170,7 @@ public class Menu {
 		while (it.hasNext()) {
 			String nomIngredient = (String) it.next();
 			// Quel est son stock ?
-			int stockDisponible = Main.machine.getStockIngredient(nomIngredient);
+			int stockDisponible = machine.getStockIngredient(nomIngredient);
 			// Combien en a-t-on besoin ?
 			int besoin = r.getIngredients().get(nomIngredient);
 			// On décrémente le stock de l'ingrédient
@@ -170,6 +190,9 @@ public class Menu {
 	 * Méthode qui permet à l'utilisateur de choisir une boisson dans la liste
 	 * des boissons de la machine
 	 * 
+	 * @param machine
+	 *            la machine a café
+	 * 
 	 * @return le nom de la boisson choisie par l'utilisateur
 	 */
 	public static String choisirBoisson(Machine machine) {
@@ -188,7 +211,7 @@ public class Menu {
 
 		while (it.hasNext()) {
 			tab[i] = (String) it.next();
-			boisson = Main.machine.getListeBoissons().get(tab[i]).toString();
+			boisson = machine.getListeBoissons().get(tab[i]).toString();
 			System.out.println(i + " - " + boisson);
 			i++;
 		}
@@ -202,6 +225,9 @@ public class Menu {
 	/**
 	 * Formulaire à remplir par l'utilisateur permettant de créer une nouvelle
 	 * boisson et de l'ajouter à la machine
+	 * 
+	 * @param machine
+	 *            la machine a café
 	 */
 	private static void montrerFormulaireAjoutBoisson(Machine machine) {
 
@@ -244,6 +270,9 @@ public class Menu {
 	/**
 	 * Affiche le niveau 3 du menu : la gestion des stocks L'utilisateur pourra
 	 * consulter les sotcks et/ou ajouter des ingrédients à la machine
+	 * 
+	 * @param machine
+	 *            la machine a café
 	 */
 	private static void montrerMenuGestionStocks(Machine machine) {
 
@@ -280,6 +309,9 @@ public class Menu {
 	 * est utilisé uniquement dans le cadre de la création d'une nouvelle
 	 * boisson
 	 * 
+	 * @param machine
+	 *            la machine a café
+	 * 
 	 * @return la nouvelle recette créée
 	 */
 	private static Recette demanderRecette(Machine machine) {
@@ -292,6 +324,9 @@ public class Menu {
 
 	/**
 	 * Affiche l'état actuel des sotcks d'ingrédients de la machine
+	 * 
+	 * @param machine
+	 *            la machine a café
 	 */
 	private static void montrerEtatStocks(Machine machine) {
 
@@ -316,6 +351,9 @@ public class Menu {
 	/**
 	 * Affiche le niveau 3 du menu : la modification d'une boisson Après avoir
 	 * sélectionné sa boisson, L'utilisateur choisi ce qu'il veut modifier
+	 * 
+	 * @param machine
+	 *            la machine a café
 	 */
 	private static void montrerMenuModificationBoisson(String choix, Machine machine) {
 
@@ -350,6 +388,8 @@ public class Menu {
 	 * 
 	 * @param nomBoisson
 	 *            le nom de la boisson choisie
+	 * @param machine
+	 *            la machine a café
 	 */
 	public static void montrerMenuModifierRecette(String nomBoisson, Machine machine) {
 		System.out.println("-- Modifier la recette de : " + nomBoisson + "--");
@@ -370,6 +410,9 @@ public class Menu {
 	/**
 	 * Montre le denrier niveau du menu : celui qui permet d'ajouter un nouvel
 	 * ingrédient à la machine
+	 * 
+	 * @param machine
+	 *            la machine a café
 	 */
 	public static void montrerMenuAjouterIngredient(Machine machine) {
 		String nom;
@@ -399,6 +442,9 @@ public class Menu {
 	 *            Le boisson commandée
 	 * @param montantPaye
 	 *            Le montant inséré dans la machine par l'utilisateur
+	 * @param machine
+	 *            la machine a café
+	 * 
 	 * @return le montant total payé par l'utilisateur
 	 */
 	public static int fairePayer(Boisson boisson, int montantPaye) {
@@ -421,6 +467,8 @@ public class Menu {
 	 * Formulaire permettant à l'utilisateur de modifier le prix d'une boisson
 	 * donnée
 	 * 
+	 * @param machine
+	 *            la machine a café
 	 * @param nomBoisson
 	 *            le nom de la boisson à modifier
 	 */
@@ -429,7 +477,7 @@ public class Menu {
 		System.out.println("Nouveau prix de la boisson : ");
 		montrerFleche();
 		int montant = Saisie.saisirPrixBoisson();
-		
+
 		machine.modifierPrixBoisson(nomBoisson, montant);
 	}
 
