@@ -1,6 +1,8 @@
 package machine;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Set;
 
 import machine.boisson.Boisson;
 import machine.boisson.Recette;
@@ -98,6 +100,36 @@ public class Machine {
 	}
 
 	/**
+	 * Méthode permettant de vérifier que les ingrédients d'une boisson sont en
+	 * stock
+	 * 
+	 * @param boisson
+	 *            la boisson sélectionnée
+	 * @return true si les ingrédients sont en stock, false sinon
+	 */
+	public boolean verifierStocksBoisson(Boisson boisson) {
+		// On récupère la recette
+		Recette r = boisson.getRecette();
+		// On prépare l'itération sur les ingrédients de la recette de la
+		// boisson en paramètre
+		Set<String> set = r.getIngredients().keySet();
+		Iterator<String> it = set.iterator();
+		// Pour chaque ingrédient
+		while (it.hasNext()) {
+			String i = (String) it.next();
+			// Quel est son stock ?
+			int stockDisponible = Main.machine.getStockIngredient(i);
+			// Combien en a-t-on besoin ?
+			int besoin = r.getIngredients().get(i);
+			// OK ?
+			if (stockDisponible >= besoin) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Ajoute un ingrédient au stock de la machine Si l'ingrédient existe, sa
 	 * quantité est modifiée S'il n'existe pas il est ajouté à la liste de
 	 * ingrédients en sotck
@@ -135,11 +167,18 @@ public class Machine {
 		return res;
 	}
 
+	/**
+	 * Modifie le stock d'un ingrédient donné
+	 * 
+	 * @param ingredient
+	 *            l'ingrédient sont on veut modifier le stock
+	 * @param nouveauStock
+	 *            la nouvelle valeur du stock
+	 */
 	public void setStockIngredient(String ingredient, int nouveauStock) {
 		this.stockIngredients.get(ingredient).setQuantite(nouveauStock);
 	}
 
-	// GETTERS & SETTERS
 	public int getNombreBoissonMax() {
 		return nombreBoissonMax;
 	}
