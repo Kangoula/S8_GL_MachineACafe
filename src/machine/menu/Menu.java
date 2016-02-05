@@ -61,8 +61,10 @@ public class Menu {
 		if (choix.equals("Retour")) {
 			montrerMenuGestionStocks(machine);
 		}
-
+		
 		// saisie du montant
+		System.out.println("Veuillez entrer la quantité à ajouter au stock de "+choix);
+		montrerFleche();
 		int quantite = Saisie.saisirEntier(1, 5000);
 		Stock stock = new Stock(choix, quantite);
 		
@@ -83,7 +85,6 @@ public class Menu {
 	 * @return l'ingrédient sélectionné
 	 */
 	private static String choisirIngredient(Machine machine) {
-		String res;
 
 		Set<String> keyset = machine.getStockIngredients().keySet();
 		Iterator<String> it = keyset.iterator();
@@ -237,7 +238,7 @@ public class Menu {
 		for (int i = 0; i < 3; i++) {
 			System.out.print("...");
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(750);
 			} catch (InterruptedException ex) {
 				Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
 			}
