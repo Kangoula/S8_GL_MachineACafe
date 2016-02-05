@@ -54,7 +54,57 @@ public class Menu {
 	 *            la machine a café
 	 */
 	private static void montrerMenuAjouterStock(Machine machine) {
-		// TODO
+
+		// sélection de l'ingrédient
+		String choix = choisirIngredient(machine);
+
+		if (choix.equals("Retour")) {
+			montrerMenuGestionStocks(machine);
+		}
+
+		// saisie du montant
+		int quantite = Saisie.saisirEntier(1, 5000);
+		Stock stock = new Stock(choix, quantite);
+		
+		// changement du stock
+		machine.ajouterStock(stock);
+		
+		// affichage de l'état des stocks
+		montrerEtatStocks(machine);
+	}
+
+	/**
+	 * Permet à l'utilisateur de sélectionner un ingrédient parmis la liste des
+	 * ingrédients disponibles dans la machine. Redemande à l'utilisateur de
+	 * saisir tant que la saisie est incorrecte.
+	 * 
+	 * @param machine
+	 *            la machine a café
+	 * @return l'ingrédient sélectionné
+	 */
+	private static String choisirIngredient(Machine machine) {
+		String res;
+
+		Set<String> keyset = machine.getStockIngredients().keySet();
+		Iterator<String> it = keyset.iterator();
+		String tab[] = new String[keyset.size() + 1];
+
+		int i = 1;
+		tab[0] = "Retour";
+		Stock ingredient;
+
+		while (it.hasNext()) {
+			tab[i] = (String) it.next();
+			ingredient = machine.getStockIngredients().get(tab[i]);
+			System.out.println(i + " - " + ingredient.getType());
+			i++;
+		}
+		System.out.println("0 - Retour");
+		montrerFleche();
+
+		i = Saisie.saisirEntier(0, tab.length - 1);
+
+		return tab[i];
 	}
 
 	/**
@@ -68,11 +118,11 @@ public class Menu {
 
 		// Choisir une boisson dans la liste des boissons disponibles
 		String choix = choisirBoisson(machine);
-		
-		if(choix.equals("Retour")){
+
+		if (choix.equals("Retour")) {
 			montrerMenuPrincipal(machine);
 		}
-		
+
 		Boisson b = machine.getListeBoissons().get(choix);
 
 		// Demander à l'utilisateur de payer
@@ -223,7 +273,7 @@ public class Menu {
 		}
 		System.out.println("0 - Retour");
 		montrerFleche();
-		
+
 		i = Saisie.saisirEntier(0, tab.length - 1);
 
 		return tab[i];
@@ -439,7 +489,7 @@ public class Menu {
 
 		// ajout
 		machine.getStockIngredients().put(nom, stock);
-		
+
 		montrerMenuGestionStocks(machine);
 	}
 
