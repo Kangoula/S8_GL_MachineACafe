@@ -63,7 +63,7 @@ public class MachineTest {
 	@Test
 	public void testAjoutBoisson2() {
 		this.m.ajouterBoisson(this.b3);
-		assertSame(-1, this.m.ajouterBoisson(this.b4));
+		assertSame(3, this.m.ajouterBoisson(this.b4));
 	}
 
 	@Test
