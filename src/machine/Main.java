@@ -73,9 +73,11 @@ public class Main {
 		Boisson b1 = new Boisson(r1, "Café Au Lait", 3);
 		Boisson b2 = new Boisson(r2, "Chocolat Chaud", 2);
 		Boisson b3 = new Boisson(r3, "Capuccino", 4);
-		Boisson b4 = new Boisson(r4, "thé à la menthe", 2);
-		Boisson b5 = new Boisson(r5, "thé avec lait", 3);
+		Boisson b4 = new Boisson(r4, "Thé à la Menthe", 2);
+		Boisson b5 = new Boisson(r5, "Thé avec Lait", 3);
 
+		m.setNombreBoissonMax(5);
+		
 		m.ajouterBoisson(b1);
 		m.ajouterBoisson(b2);
 		m.ajouterBoisson(b3);
@@ -87,8 +89,6 @@ public class Main {
 		m.ajouterStock(s3);
 		m.ajouterStock(s4);
 		m.ajouterStock(s5);
-		
-		m.setNombreBoissonMax(5);
 		
 		return m;
 	}

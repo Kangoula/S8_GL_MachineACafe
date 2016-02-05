@@ -53,7 +53,7 @@ public class Menu {
 	 * @param machine
 	 *            la machine a café
 	 */
-	public static void montrerMenuAjouterStock(Machine machine) {
+	private static void montrerMenuAjouterStock(Machine machine) {
 		// TODO
 	}
 
@@ -63,13 +63,16 @@ public class Menu {
 	 * @param machine
 	 *            la machine à café
 	 */
-	public static void montrerMenuCommande(Machine machine) {
+	private static void montrerMenuCommande(Machine machine) {
 		System.out.println("\n-- Commander votre boisson préférée --");
 
 		// Choisir une boisson dans la liste des boissons disponibles
 		String choix = choisirBoisson(machine);
-		montrerFleche();
-
+		
+		if(choix.equals("Retour")){
+			montrerMenuPrincipal(machine);
+		}
+		
 		Boisson b = machine.getListeBoissons().get(choix);
 
 		// Demander à l'utilisateur de payer
@@ -88,6 +91,11 @@ public class Menu {
 			fabriquerBoisson(b, machine);
 			System.out.println(
 					"\nLa machine vient de vous donner votre boisson. Ce serait une bonne idée de la prendre !\n");
+			try {
+				Thread.sleep(1500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 
 		} else {
 			// Afficher un message :-(
@@ -107,7 +115,7 @@ public class Menu {
 	 * @param machine
 	 *            la machine a café
 	 */
-	public static void montrerMenuGestion(Machine machine) {
+	private static void montrerMenuGestion(Machine machine) {
 		System.out.println("-- Gestion de la machine --\n");
 		System.out.println("1 - Ajouter une boisson");
 		System.out.println("2 - Supprimer une boisson");
@@ -159,7 +167,7 @@ public class Menu {
 	 * @param machine
 	 *            la machine à café
 	 */
-	public static void fabriquerBoisson(Boisson boisson, Machine machine) {
+	private static void fabriquerBoisson(Boisson boisson, Machine machine) {
 		// On récupère la recette
 		Recette r = boisson.getRecette();
 		// On prépare l'itération sur les ingrédients de la recette de la
@@ -195,7 +203,7 @@ public class Menu {
 	 * 
 	 * @return le nom de la boisson choisie par l'utilisateur
 	 */
-	public static String choisirBoisson(Machine machine) {
+	private static String choisirBoisson(Machine machine) {
 
 		int nbBoissons = machine.getListeBoissons().size();
 		String tab[] = new String[nbBoissons + 1];
@@ -207,16 +215,15 @@ public class Menu {
 		tab[0] = "Retour";
 		String boisson;
 
-		System.out.println("0 - Retour");
-
 		while (it.hasNext()) {
 			tab[i] = (String) it.next();
 			boisson = machine.getListeBoissons().get(tab[i]).toString();
 			System.out.println(i + " - " + boisson);
 			i++;
 		}
-
+		System.out.println("0 - Retour");
 		montrerFleche();
+		
 		i = Saisie.saisirEntier(0, tab.length - 1);
 
 		return tab[i];
@@ -391,7 +398,7 @@ public class Menu {
 	 * @param machine
 	 *            la machine a café
 	 */
-	public static void montrerMenuModifierRecette(String nomBoisson, Machine machine) {
+	private static void montrerMenuModifierRecette(String nomBoisson, Machine machine) {
 		System.out.println("-- Modifier la recette de : " + nomBoisson + "--");
 
 		// récupération de ingrédients de la boisson choisie
@@ -414,7 +421,7 @@ public class Menu {
 	 * @param machine
 	 *            la machine a café
 	 */
-	public static void montrerMenuAjouterIngredient(Machine machine) {
+	private static void montrerMenuAjouterIngredient(Machine machine) {
 		String nom;
 		int quantite;
 
@@ -447,7 +454,7 @@ public class Menu {
 	 * 
 	 * @return le montant total payé par l'utilisateur
 	 */
-	public static int fairePayer(Boisson boisson, int montantPaye) {
+	private static int fairePayer(Boisson boisson, int montantPaye) {
 		int prixBoisson = boisson.getPrix();
 
 		if (montantPaye >= prixBoisson) {
@@ -472,7 +479,7 @@ public class Menu {
 	 * @param nomBoisson
 	 *            le nom de la boisson à modifier
 	 */
-	public static void montrerFormulaireGestionPrix(String nomBoisson, Machine machine) {
+	private static void montrerFormulaireGestionPrix(String nomBoisson, Machine machine) {
 		// saisie du montant
 		System.out.println("Nouveau prix de la boisson : ");
 		montrerFleche();
