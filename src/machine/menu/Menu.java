@@ -125,7 +125,14 @@ public class Menu {
 		}
 
 		Boisson b = machine.getListeBoissons().get(choix);
+		
+		System.out.println("Veuillez préciser le quantité de sucre :");
+		System.out.println("Quentité actuelle : "+b.getRecette().getQte("sucre")+" unité(s)");
 
+		montrerFleche();
+		int qteSucre = Saisie.saisirQuantiteSucre();
+		b.getRecette().ajouterIngredient("sucre", qteSucre);
+		
 		// Demander à l'utilisateur de payer
 		System.out.println("Combien tu lâches ?");
 		int montantPaye = fairePayer(b, 0);

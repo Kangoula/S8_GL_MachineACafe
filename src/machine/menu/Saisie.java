@@ -52,6 +52,10 @@ public class Saisie {
 		return saisirEntier(0, 5000);
 	}
 
+	public static int saisirQuantiteSucre() {
+		return saisirEntier(0, 5);
+	}
+	
 	/**
 	 * Vérifie si la chaine de caractères saisie par l'utilisateur est bien
 	 * valide. Elle doit être différente d'un " " et a une taille maximum. Si la
