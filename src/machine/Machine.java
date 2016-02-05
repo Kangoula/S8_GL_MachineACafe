@@ -128,7 +128,7 @@ public class Machine {
 		}
 		return false;
 	}
-
+	
 	/**
 	 * Ajoute un ingrédient au stock de la machine Si l'ingrédient existe, sa
 	 * quantité est modifiée S'il n'existe pas il est ajouté à la liste de
