@@ -439,6 +439,8 @@ public class Menu {
 
 		// ajout
 		machine.getStockIngredients().put(nom, stock);
+		
+		montrerMenuGestionStocks(machine);
 	}
 
 	/**
