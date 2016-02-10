@@ -1,6 +1,12 @@
 package machine.boisson;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import machine.database.Connexion;
+import machine.stock.Stock;
 
 /**
  * Représente la recette d'une boisson 
@@ -78,4 +84,16 @@ public class Recette {
 	public void setIngredients(HashMap<String, Integer> ingredients) {
 		this.ingredients = ingredients;
 	}
+        
+        public void insertInDB(int id) {
+            String sql = "INSERT INTO recettes VALUES (?)";
+            PreparedStatement ps;
+            try {
+                ps = Connexion.getConnection().prepareStatement(sql);
+                ps.setInt(1,id);
+                ps.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 }
