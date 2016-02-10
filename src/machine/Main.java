@@ -29,10 +29,19 @@ public class Main {
 		Machine m = new Machine();
 
 		Stock s1 = new Stock("café", 12);
+                s1.insertInDB();
+                
 		Stock s2 = new Stock("LAIT", 50);
+                s2.insertInDB();
+                
 		Stock s3 = new Stock("Chocolat", 14);
+                s3.insertInDB();
+                
 		Stock s4 = new Stock("sucre", 43);
+                s4.insertInDB();
+                
 		Stock s5 = new Stock("thé", 50);
+                s5.insertInDB();
 
 		Recette r1 = new Recette();
 		Recette r2 = new Recette();

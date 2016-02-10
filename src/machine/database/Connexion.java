@@ -19,7 +19,7 @@ public class Connexion {
     public Connexion() {
         try {
             Class.forName("org.sqlite.JDBC");
-            this.c = DriverManager.getConnection("jdbc:sqlite:test.db");
+            this.c = DriverManager.getConnection("jdbc:sqlite:src/database.db");
         } catch (Exception e) {
             // Problème
         }

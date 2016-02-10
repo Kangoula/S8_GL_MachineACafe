@@ -32,6 +32,7 @@ public class Stock {
 		if(qte >= 0){
 			this.quantite += qte;
 		}
+                this.updateInDB();
 	}
 	
 	//GETTERS & SETTERS
@@ -49,6 +50,7 @@ public class Stock {
 
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
+                this.updateInDB();
 	}
         
         public void insertInDB() {
@@ -58,6 +60,20 @@ public class Stock {
                 ps = Connexion.getConnection().prepareStatement(sql);
                 ps.setString(1,this.type);
                 ps.setInt(2,this.quantite);
+                ps.executeUpdate();
+            } catch (SQLException ex) {
+                Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        public void updateInDB() {
+            String sql = "UPDATE stocks SET quantite=? WHERE type=?";
+            PreparedStatement ps;
+            try {
+                ps = Connexion.getConnection().prepareStatement(sql);
+                ps.setString(2,this.type);
+                ps.setInt(1,this.quantite);
+                ps.executeUpdate();
             } catch (SQLException ex) {
                 Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
             }
