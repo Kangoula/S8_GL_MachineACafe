@@ -32,7 +32,6 @@ public class Menu {
 		switch (res) {
 		case "1":
 			montrerMenuCommande(machine);
-			montrerMenuPrincipal(machine);
 			break;
 		case "2":
 			montrerMenuGestion(machine);
@@ -60,19 +59,21 @@ public class Menu {
 
 		if (choix.equals("Retour")) {
 			montrerMenuGestionStocks(machine);
-		}
-		
-		// saisie du montant
-		System.out.println("Veuillez entrer la quantité à ajouter au stock de "+choix);
-		montrerFleche();
-		int quantite = Saisie.saisirEntier(1, 5000);
-		Stock stock = new Stock(choix, quantite);
-		
-		// changement du stock
-		machine.ajouterStock(stock);
-		
-		// affichage de l'état des stocks
-		montrerEtatStocks(machine);
+		} else {
+
+                    // saisie du montant
+                    System.out.println("Veuillez entrer la quantité à ajouter au stock de "+choix);
+                    montrerFleche();
+                    int quantite = Saisie.saisirEntier(1, 5000);
+                    Stock stock = new Stock(choix, quantite);
+
+                    // changement du stock
+                    machine.ajouterStock(stock);
+
+                    // affichage de l'état des stocks
+                    montrerEtatStocks(machine);
+
+                }
 	}
 
 	/**
@@ -122,49 +123,49 @@ public class Menu {
 
 		if (choix.equals("Retour")) {
 			montrerMenuPrincipal(machine);
-		}
-
-		Boisson b = machine.getListeBoissons().get(choix);
-		
-		System.out.println("Veuillez préciser le quantité de sucre :");
-		System.out.println("Quentité actuelle : "+b.getRecette().getQte("sucre")+" unité(s)");
-
-		montrerFleche();
-		int qteSucre = Saisie.saisirQuantiteSucre();
-		b.getRecette().ajouterIngredient("sucre", qteSucre);
-		
-		// Demander à l'utilisateur de payer
-		System.out.println("Combien tu lâches ?");
-		int montantPaye = fairePayer(b, 0);
-
-		// Vérifier que les stocks sont suffisants
-		boolean stocksOK = machine.verifierStocksBoisson(b);
-
-		if (stocksOK) {
-			// Rendre la monnaie
-			int montantARendre = Caisse.rendreMonnaie(b, montantPaye);
-			System.out.println("La machine va vous rendre " + montantARendre + " euros.");
-
-			// Fabriquer la boisson (décrémenter les stocks + attente)
-			fabriquerBoisson(b, machine);
-			System.out.println(
-					"\nLa machine vient de vous donner votre boisson. Ce serait une bonne idée de la prendre !\n");
-			try {
-				Thread.sleep(1500);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-
 		} else {
-			// Afficher un message :-(
-			System.out.println("Plus de stock");
 
-			// Rendre le montant payé
-			System.out.println("La machine va vous rendre" + montantPaye + "euros.");
-		}
+                    Boisson b = machine.getListeBoissons().get(choix);
 
-		// Retour à l'accueil
+                    System.out.println("Veuillez préciser le quantité de sucre :");
+                    System.out.println("Quentité actuelle : "+b.getRecette().getQte("sucre")+" unité(s)");
 
+                    montrerFleche();
+                    int qteSucre = Saisie.saisirQuantiteSucre();
+                    b.getRecette().ajouterIngredient("sucre", qteSucre);
+
+                    // Demander à l'utilisateur de payer
+                    System.out.println("Combien tu lâches ?");
+                    int montantPaye = fairePayer(b, 0);
+
+                    // Vérifier que les stocks sont suffisants
+                    boolean stocksOK = machine.verifierStocksBoisson(b);
+
+                    if (stocksOK) {
+                            // Rendre la monnaie
+                            int montantARendre = Caisse.rendreMonnaie(b, montantPaye);
+                            System.out.println("La machine va vous rendre " + montantARendre + " euros.");
+
+                            // Fabriquer la boisson (décrémenter les stocks + attente)
+                            fabriquerBoisson(b, machine);
+                            System.out.println(
+                                            "\nLa machine vient de vous donner votre boisson. Ce serait une bonne idée de la prendre !\n");
+                            try {
+                                    Thread.sleep(1500);
+                            } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                            }
+
+                    } else {
+                            // Afficher un message :-(
+                            System.out.println("Plus de stock");
+
+                            // Rendre le montant payé
+                            System.out.println("La machine va vous rendre" + montantPaye + "euros.");
+                    }
+
+                    // Retour à l'accueil
+                }
 	}
 
 	/**
@@ -486,7 +487,7 @@ public class Menu {
 		// demander le nom
 		System.out.println("Nom du nouvel ingrédient : ");
 		montrerFleche();
-		nom = Saisie.saisirChaine(30);
+		nom = Saisie.saisirChaine(30).toLowerCase();
 
 		// demander quantité
 		System.out.println("Quantité initiale ");

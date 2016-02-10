@@ -128,7 +128,7 @@ public class Saisie {
 			} catch (InputMismatchException ime) {
 				afficherErreurChaine();
 				Menu.montrerFleche();
-				nb = sc.nextInt();
+				sc.next();
 			}
 		}
 	}
