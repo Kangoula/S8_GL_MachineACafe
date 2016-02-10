@@ -1,5 +1,11 @@
 package machine.stock;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import machine.database.Connexion;
+
 /**
  * Représente le stock des ingrédients de la machine
  * @author Guillaume Denis
@@ -44,6 +50,17 @@ public class Stock {
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
 	}
-
+        
+        public void insertInDB() {
+            String sql = "INSERT INTO stocks VALUES (?,?)";
+            PreparedStatement ps;
+            try {
+                ps = Connexion.getConnection().prepareStatement(sql);
+                ps.setString(1,this.type);
+                ps.setInt(2,this.quantite);
+            } catch (SQLException ex) {
+                Logger.getLogger(Stock.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
 	
 }

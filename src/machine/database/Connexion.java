@@ -11,7 +11,7 @@ import java.util.logging.Logger;
  */
 public class Connexion {
     
-    private Connection c;
+    private static Connection c;
     
     /**
      * Construit une connexion à la base de données.
@@ -30,11 +30,11 @@ public class Connexion {
      * sinon elle en crée une puis la retourne
      * @return 
      */
-    public Connection getConnection() {
+    public static Connection getConnection() {
         if(c==null) {
             new Connexion();
         }
-        return this.c;
+        return Connexion.c;
     }
     
 }
