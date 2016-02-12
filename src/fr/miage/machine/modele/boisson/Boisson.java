@@ -1,4 +1,4 @@
-package machine.boisson;
+package fr.miage.machine.modele.boisson;
 
 /**
  * Représente une boisson disponible dans la machine

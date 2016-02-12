@@ -1,4 +1,4 @@
-package machine;
+package fr.miage.machine.modele;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -10,7 +10,7 @@ import machine.stock.Stock;
 
 /**
  * Représente la machine a café et ses interactions avec l'utilisateur
- * 
+ *
  * @author Guillaume Denis
  *
  */
@@ -29,7 +29,7 @@ public class Machine {
 	/**
 	 * Ajoute une nouvelle boisson à la machine si la taille de la liste de
 	 * boissons est plus petite que 3
-	 * 
+	 *
 	 * @param boisson
 	 *            la boisson à ajouter à la machine
 	 * @return la taille de la liste de boissons après insertion
@@ -46,7 +46,7 @@ public class Machine {
 
 	/**
 	 * Modifie la recette d'une boisson existante dans la machine
-	 * 
+	 *
 	 * @param nomBoisson
 	 *            le nom de la boisson dont on veut modifier la recette
 	 * @param nomIngredient
@@ -70,7 +70,7 @@ public class Machine {
 
 	/**
 	 * Modifie le prix d'une boisson existante dans la machine
-	 * 
+	 *
 	 * @param nomBoisson
 	 *            le nom de la boisson dont on veut modifier le prix
 	 * @param prix
@@ -88,7 +88,7 @@ public class Machine {
 
 	/**
 	 * Supprime une boisson de la machine
-	 * 
+	 *
 	 * @param nomBoisson
 	 *            le nom de la boisson à supprimer
 	 * @return la taille de la liste de boissons de la machine
@@ -102,7 +102,7 @@ public class Machine {
 	/**
 	 * Méthode permettant de vérifier que les ingrédients d'une boisson sont en
 	 * stock
-	 * 
+	 *
 	 * @param boisson
 	 *            la boisson sélectionnée
 	 * @return true si les ingrédients sont en stock, false sinon
@@ -128,12 +128,12 @@ public class Machine {
 		}
 		return false;
 	}
-	
+
 	/**
 	 * Ajoute un ingrédient au stock de la machine Si l'ingrédient existe, sa
 	 * quantité est modifiée S'il n'existe pas il est ajouté à la liste de
 	 * ingrédients en sotck
-	 * 
+	 *
 	 * @param stock
 	 *            le stock à ajouter à la machine
 	 * @return le stock ajouté à la liste, null si le stock n'a pas été ajouté
@@ -151,7 +151,7 @@ public class Machine {
 
 	/**
 	 * Renvoit le Stock d'un ingréient donné
-	 * 
+	 *
 	 * @param nomIngredient
 	 *            le nom de l'ingrédient dont on souhaite consulter le stock
 	 * @return la valeur actuelle du stock, -1 si le stock n'existe pas
@@ -169,7 +169,7 @@ public class Machine {
 
 	/**
 	 * Modifie le stock d'un ingrédient donné
-	 * 
+	 *
 	 * @param ingredient
 	 *            l'ingrédient sont on veut modifier le stock
 	 * @param nouveauStock

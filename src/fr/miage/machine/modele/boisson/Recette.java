@@ -1,4 +1,4 @@
-package machine.boisson;
+package fr.miage.machine.modele.boisson;
 
 import java.util.HashMap;
 

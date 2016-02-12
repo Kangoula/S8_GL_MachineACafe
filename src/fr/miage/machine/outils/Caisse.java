@@ -1,4 +1,4 @@
-package machine.caisse;
+package fr.miage.machine.outils;
 
 import machine.boisson.Boisson;
 

@@ -1,4 +1,4 @@
-package machine.database;
+package fr.miage.machine.database;
 
 import java.sql.*;
 import java.util.logging.Level;

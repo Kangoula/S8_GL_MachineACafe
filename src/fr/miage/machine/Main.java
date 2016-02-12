@@ -1,4 +1,4 @@
-package machine;
+package fr.miage.machine;
 
 import java.util.InputMismatchException;
 import java.util.Iterator;

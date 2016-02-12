@@ -1,4 +1,4 @@
-package machine.test;
+package fr.miage.machine.test;
 
 import static org.junit.Assert.*;
 

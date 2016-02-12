@@ -1,4 +1,4 @@
-package machine.stock;
+package fr.miage.machine.modele.stock;
 
 /**
  * Représente le stock des ingrédients de la machine

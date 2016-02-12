@@ -1,4 +1,4 @@
-package machine.menu;
+package fr.miage.machine.menu;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
