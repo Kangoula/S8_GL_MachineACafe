@@ -119,7 +119,7 @@ public class MainApp extends Application {
 		try {
 			// chargement du fxml associé
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/RootLayout.fxml"));
+			loader.setLocation(MainApp.class.getResource("view/rootLayout.fxml"));
 			rootLayout = (BorderPane) loader.load();
 
 			// affiche la scène
