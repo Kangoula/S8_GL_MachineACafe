@@ -5,12 +5,12 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import machine.Machine;
-import machine.Main;
-import machine.boisson.Boisson;
-import machine.boisson.Recette;
-import machine.caisse.Caisse;
-import machine.stock.Stock;
+import fr.miage.machine.Main;
+import fr.miage.machine.modele.Machine;
+import fr.miage.machine.modele.boisson.Boisson;
+import fr.miage.machine.modele.boisson.Recette;
+import fr.miage.machine.modele.stock.Stock;
+import fr.miage.machine.outils.Caisse;
 
 public class Menu {
 

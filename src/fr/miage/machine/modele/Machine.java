@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
 
-import machine.boisson.Boisson;
-import machine.boisson.Recette;
-import machine.stock.Stock;
+import fr.miage.machine.modele.boisson.Boisson;
+import fr.miage.machine.modele.boisson.Recette;
+import fr.miage.machine.modele.stock.Stock;
 
 /**
  * Représente la machine a café et ses interactions avec l'utilisateur

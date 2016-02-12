@@ -1,16 +1,10 @@
 package fr.miage.machine;
 
-import java.util.InputMismatchException;
-import java.util.Iterator;
-import java.util.Scanner;
-import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import machine.boisson.Boisson;
-import machine.boisson.Recette;
-import machine.menu.Menu;
-import machine.stock.Stock;
+import fr.miage.machine.menu.Menu;
+import fr.miage.machine.modele.Machine;
+import fr.miage.machine.modele.boisson.Boisson;
+import fr.miage.machine.modele.boisson.Recette;
+import fr.miage.machine.modele.stock.Stock;
 
 public class Main {
 

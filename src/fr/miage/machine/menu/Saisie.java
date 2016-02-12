@@ -4,7 +4,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Set;
 
-import machine.boisson.Recette;
+import fr.miage.machine.modele.boisson.Recette;
 
 public class Saisie {
 

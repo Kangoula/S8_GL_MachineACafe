@@ -1,14 +1,16 @@
 package fr.miage.machine.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertSame;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import machine.Machine;
-import machine.boisson.Boisson;
-import machine.boisson.Recette;
-import machine.stock.Stock;
+import fr.miage.machine.modele.Machine;
+import fr.miage.machine.modele.boisson.Boisson;
+import fr.miage.machine.modele.boisson.Recette;
+import fr.miage.machine.modele.stock.Stock;
 
 public class MachineTest {
 

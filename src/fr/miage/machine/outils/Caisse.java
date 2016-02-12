@@ -1,6 +1,6 @@
 package fr.miage.machine.outils;
 
-import machine.boisson.Boisson;
+import fr.miage.machine.modele.boisson.Boisson;
 
 /**
  * Représente les opérations financières de la machine a café
