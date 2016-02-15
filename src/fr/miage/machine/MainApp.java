@@ -48,7 +48,7 @@ public class MainApp extends Application {
 
 		initRootLayout();
 
-		//showMenuOverview();
+		showMenuOverview();
 
 	}
 
@@ -59,11 +59,11 @@ public class MainApp extends Application {
 		try {
 			// chargement du fxml
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(MainApp.class.getResource("view/PersonOverview.fxml"));
-			AnchorPane personOverview = (AnchorPane) loader.load();
+			loader.setLocation(MainApp.class.getResource("view/menuOverview.fxml"));
+			AnchorPane menuOverview = (AnchorPane) loader.load();
 			
 			//ajoute le PersonOverview dans le layout
-			rootLayout.setCenter(personOverview);
+			rootLayout.setLeft(menuOverview);
 			
 			// Donne au controleur l'accès à l'application
 	       // PersonOverviewController controller = loader.getController();

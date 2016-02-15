@@ -71,10 +71,13 @@
 }
 
 .menu-bar {
-    -fx-background-color: #f8f8f8;
+    -fx-background-color: white;
     -fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.5), 5.0, 0.0, 0.0, 0.0);
 }
-
+.white-bg {
+	-fx-background-color: white;
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0.0,0.0,0.0,0.2), 2.5, 0, 5, 0);*/
+}
 .context-menu {
     -fx-background-color: derive(#f8f8f8,80.0%);
 }
