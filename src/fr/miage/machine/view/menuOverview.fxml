@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="800.0" prefWidth="210.0" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="800.0" prefWidth="210.0" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fr.miage.machine.view.MenuOverviewController">
    <children>
       <BorderPane prefHeight="800.0" prefWidth="215.0" styleClass="white-bg" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <center>
@@ -20,7 +20,7 @@
                               <Insets bottom="30.0" left="5.0" />
                            </VBox.margin>
                         </Label>
-                        <Button mnemonicParsing="false" prefWidth="200.0" styleClass="button-default" text="Commander">
+                        <Button defaultButton="true" mnemonicParsing="false" onAction="#handleShowOrderMenu" prefWidth="200.0" styleClass="button-default" text="Commander">
                            <VBox.margin>
                               <Insets bottom="5.0" left="10.0" right="5.0" />
                            </VBox.margin>
